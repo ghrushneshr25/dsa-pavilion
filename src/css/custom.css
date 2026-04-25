@@ -6,6 +6,44 @@
   --ifm-line-height-base: 1.7;
 }
 
+/* GitHub (custom navbar item): spacing + color (external links default to blue) */
+.dsa-navbar-github-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline-end: 0.75rem;
+}
+
+.dsa-navbar-github-icon {
+  display: block;
+}
+
+/* Top navbar strip: white text to match other right-side controls */
+.navbar__items--right .dsa-navbar-github-link,
+.navbar__items--right .dsa-navbar-github-link:visited {
+  color: #fff !important;
+}
+
+.navbar__items--right .dsa-navbar-github-link:hover {
+  color: #fff !important;
+  opacity: 0.88;
+}
+
+.navbar__items--right .dsa-navbar-github-link svg {
+  fill: currentColor;
+}
+
+/* Mobile drawer: light background — keep link readable */
+.navbar-sidebar .dsa-navbar-github-link,
+.navbar-sidebar .dsa-navbar-github-link:visited {
+  color: var(--ifm-font-color-base) !important;
+}
+
+.navbar-sidebar .dsa-navbar-github-link:hover {
+  color: var(--ifm-color-primary) !important;
+  opacity: 1;
+}
+
 /* =====================================================
    PAGE WIDTH
 ===================================================== */

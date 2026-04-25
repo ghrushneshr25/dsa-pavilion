@@ -59,15 +59,9 @@ const config = {
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Browse',
-        },
-        {
-          href: 'https://github.com/ghrushneshr25/dsa-pavilion',
-          label: 'GitHub',
+          type: 'custom-githubSource',
           position: 'right',
+          label: 'GitHub',
         },
       ],
     },
