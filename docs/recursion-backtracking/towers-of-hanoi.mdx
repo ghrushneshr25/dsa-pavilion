@@ -93,6 +93,7 @@ func (m TowerOfHanoiMove) String() string {
 
 func TowerOfHanoi(n int, source, destination, auxiliary string) []TowerOfHanoiMove {
 	if n <= 0 {
+		fmt.Println("No disks to move")
 		return nil
 	}
 	var moves []TowerOfHanoiMove
