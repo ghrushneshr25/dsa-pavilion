@@ -1,0 +1,648 @@
+/* =====================================================
+   GLOBAL TYPOGRAPHY
+===================================================== */
+
+:root {
+  --ifm-line-height-base: 1.7;
+}
+
+/* =====================================================
+   PAGE WIDTH
+===================================================== */
+
+.container {
+  max-width: 860px;
+}
+
+/*
+ * Docs home (slug `/`, html class `docs-doc-id-index`): theme forces the main
+ * column to max-width 75% on desktop, which looks off-center and cramped.
+ * Restore full column width and let the book hero use the viewport.
+ */
+@media (min-width: 997px) {
+  html.docs-doc-id-index main[class*='docMainContainer_'] [class*='docItemCol_'] {
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+
+  html.docs-doc-id-index main [class*='docItemWrapperEnhanced_'] {
+    max-width: none !important;
+  }
+}
+
+html.docs-doc-id-index main .container {
+  max-width: min(90rem, calc(100vw - 1.5rem));
+  width: 100%;
+}
+
+html.docs-doc-id-index .row:has(.dsa-home--book) {
+  justify-content: center;
+}
+
+/* =====================================================
+   HEADINGS
+===================================================== */
+
+.markdown h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdown h2 {
+  font-size: 1.4rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0.6rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  padding-bottom: 0.3rem;
+}
+
+.markdown h3 {
+  margin-top: 1.5rem;
+}
+
+/* =====================================================
+   TEXT
+===================================================== */
+
+.markdown p {
+  color: var(--ifm-font-color-base);
+}
+
+.markdown li {
+  margin: 6px 0;
+}
+
+/* =====================================================
+   META (Difficulty + Tags)
+===================================================== */
+
+.meta-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.difficulty-badge {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.difficulty-badge.easy {
+  background: var(--ifm-color-success-contrast-background);
+  color: var(--ifm-color-success-dark);
+}
+
+.difficulty-badge.medium {
+  background: var(--ifm-color-warning-contrast-background);
+  color: var(--ifm-color-warning-dark);
+}
+
+.difficulty-badge.hard {
+  background: var(--ifm-color-danger-contrast-background);
+  color: var(--ifm-color-danger-dark);
+}
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag-badge {
+  font-size: 12px;
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-font-color-base);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+/* =====================================================
+   COMPLEXITY
+===================================================== */
+
+.complexity {
+  font-size: 13px;
+  color: var(--ifm-color-emphasis-700);
+  display: flex;
+  gap: 20px;
+  margin-bottom: 1rem;
+}
+
+/* =====================================================
+   CODE BLOCK
+===================================================== */
+
+.theme-code-block {
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+table {
+  font-size: 14px;
+}
+
+table tr:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+
+/* =====================================================
+   REMOVE HR
+===================================================== */
+
+hr {
+  display: none;
+}
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.menu__link {
+  font-size: 14px;
+}
+
+.menu__link--active {
+  font-weight: 600;
+}
+
+/* =====================================================
+   TOC
+===================================================== */
+
+.table-of-contents {
+  font-size: 13px;
+  color: var(--ifm-color-emphasis-700);
+}
+
+/* =====================================================
+   HERO (HOMEPAGE)
+===================================================== */
+
+.hero {
+  text-align: center;
+  margin-top: 6rem;
+  margin-bottom: 4rem;
+}
+
+.hero h1 {
+  font-size: 2.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.hero-subtitle {
+  font-size: 1rem;
+  color: var(--ifm-color-emphasis-700);
+  margin-top: 0.5rem;
+}
+
+.hero-buttons {
+  margin-top: 1.5rem;
+}
+
+/* =====================================================
+   SECTION SPACING
+===================================================== */
+
+.markdown>h2 {
+  margin-top: 3rem;
+}
+
+/* =====================================================
+   HOME PAGE
+===================================================== */
+
+.home-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+section {
+  margin-top: 3rem;
+}
+
+/* =====================================================
+   🔥 DSA SECTION SYSTEM (UPDATED FIXES)
+===================================================== */
+
+.dsa-section {
+  margin: 1.5rem 0;
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+/* FIX: remove excessive top spacing inside sections */
+.dsa-section h2 {
+  margin-top: 0 !important;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* subtle hover */
+.dsa-section:hover {
+  transform: translateY(-1px);
+}
+
+/* -----------------------------------------------------
+   DESCRIPTION
+----------------------------------------------------- */
+
+.dsa-description {
+  background: var(--ifm-color-emphasis-100);
+  border-left: 4px solid var(--ifm-color-primary);
+}
+
+/* -----------------------------------------------------
+   ALGORITHM
+----------------------------------------------------- */
+
+.dsa-algorithm {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dsa-algorithm h2 {
+  border-bottom: none;
+}
+
+.dsa-algorithm code {
+  color: #e2e8f0;
+}
+
+/* -----------------------------------------------------
+   NOTES
+----------------------------------------------------- */
+
+.dsa-notes {
+  border-left: 4px solid var(--ifm-color-warning);
+  background: var(--ifm-color-emphasis-100);
+}
+
+/* -----------------------------------------------------
+   GOAL / CONSTRAINTS
+----------------------------------------------------- */
+
+.dsa-goal {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.dsa-constraints {
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* =====================================================
+   DARK MODE SUPPORT
+===================================================== */
+
+html[data-theme='dark'] .dsa-description {
+  background: #1e293b;
+}
+
+html[data-theme='dark'] .dsa-algorithm {
+  background: #020617;
+}
+
+html[data-theme='dark'] .dsa-goal {
+  background: rgba(59, 130, 246, 0.15);
+}
+
+html[data-theme='dark'] .dsa-constraints {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+/* =====================================================
+   OPTIONAL: ICONS FOR SECTIONS
+===================================================== */
+
+.dsa-description h2::before {
+  content: "📘 ";
+}
+
+.dsa-algorithm h2::before {
+  content: "⚙️ ";
+}
+
+.dsa-notes h2::before {
+  content: "📝 ";
+}
+
+.dsa-goal h2::before {
+  content: "🎯 ";
+}
+
+.dsa-constraints h2::before {
+  content: "⚠️ ";
+}
+
+/* =====================================================
+   SITE HOME (docs/index.mdx)
+===================================================== */
+
+.dsa-home {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 0 3rem;
+}
+
+.dsa-home__hero {
+  text-align: center;
+  padding: 2.5rem 1rem 2rem;
+  border-radius: 12px;
+  background: linear-gradient(
+    165deg,
+    var(--ifm-color-emphasis-100) 0%,
+    transparent 55%
+  );
+  margin-bottom: 2rem;
+}
+
+.dsa-home__hero h1 {
+  font-size: 2.25rem;
+  margin-bottom: 0.75rem;
+  border-bottom: none;
+}
+
+.dsa-home__lead {
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: var(--ifm-color-emphasis-800);
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.dsa-home__topics h2,
+.dsa-home__how h2 {
+  font-size: 1.35rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.dsa-home__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.dsa-home__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.15rem 1.25rem;
+  border-radius: 10px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.dsa-home__card:hover {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+}
+
+.dsa-home__card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.dsa-home__card-meta {
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.dsa-home__how {
+  margin-top: 2.5rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 10px;
+  background: var(--ifm-color-emphasis-100);
+}
+
+.dsa-home__list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.dsa-home__list li {
+  margin: 0.5rem 0;
+}
+
+html[data-theme='dark'] .dsa-home__hero {
+  background: linear-gradient(165deg, #1e293b 0%, transparent 60%);
+}
+
+html[data-theme='dark'] .dsa-home__card {
+  border-color: #334155;
+  background: #0f172a;
+}
+
+html[data-theme='dark'] .dsa-home__card:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+}
+
+html[data-theme='dark'] .dsa-home__how {
+  background: #1e293b;
+}
+
+/* =====================================================
+   HOME (book + topics)
+===================================================== */
+
+.dsa-home--book {
+  padding-top: 0.25rem;
+}
+
+/* Book home only: fill main column, vertical rhythm, centered topic grid */
+html.docs-doc-id-index .dsa-home.dsa-home--book {
+  max-width: none;
+  width: 100%;
+  margin: 0 auto;
+  padding-inline: clamp(0.75rem, 3vw, 2rem);
+  padding-bottom: 3rem;
+  box-sizing: border-box;
+  min-height: calc(100vh - var(--ifm-navbar-height) - 2.5rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.dsa-home__book-hero {
+  text-align: center;
+  padding: 2rem 1rem 2.5rem;
+  margin-bottom: 2rem;
+  border-radius: 14px;
+  background: linear-gradient(
+    165deg,
+    var(--ifm-color-emphasis-100) 0%,
+    transparent 65%
+  );
+}
+
+html.docs-doc-id-index .dsa-home__book-hero {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: min(56vh, 620px);
+  margin-bottom: 2rem;
+  padding: clamp(1.5rem, 5vw, 3rem) clamp(1rem, 4vw, 2.5rem);
+}
+
+.dsa-home__book-preface {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.5;
+}
+
+.dsa-home__book-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  margin: 0 0 1rem;
+  font-family: var(--ifm-heading-font-family);
+  line-height: 1.15;
+}
+
+.dsa-home__book-line,
+.dsa-home__book-made {
+  font-weight: 700;
+  font-size: clamp(1.35rem, 4vw, 1.85rem);
+  color: var(--ifm-font-color-base);
+}
+
+.dsa-home__book-and {
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--ifm-color-emphasis-600);
+  margin: 0.2rem 0;
+}
+
+.dsa-home__book-made {
+  margin-top: 0.25rem;
+  color: var(--ifm-color-primary);
+  font-size: clamp(1.5rem, 4.5vw, 2rem);
+}
+
+.dsa-home__book-by {
+  margin: 0 0 1.25rem;
+  font-size: 1.05rem;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.dsa-home__book-by cite {
+  font-style: normal;
+  font-weight: 600;
+}
+
+.dsa-home__book-lead {
+  margin: 0 auto;
+  max-width: 34rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.dsa-home__topics-block {
+  margin-top: 0.5rem;
+}
+
+.dsa-home__topics-heading {
+  font-size: 1.35rem;
+  margin: 0 0 1rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+html.docs-doc-id-index .dsa-home--book .dsa-home__topics-heading {
+  text-align: center;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+html.docs-doc-id-index .dsa-home--book .dsa-home__topics-block {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+}
+
+html.docs-doc-id-index .dsa-home--book .dsa-home__grid {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 320px));
+  justify-content: center;
+}
+
+html[data-theme='dark'] .dsa-home__book-hero {
+  background: linear-gradient(165deg, #1e293b 0%, transparent 70%);
+}
+
+html[data-theme='dark'] .dsa-home__topics-heading {
+  border-bottom-color: #334155;
+}
+
+.dsa-home__card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.dsa-home__card-arrow {
+  color: var(--ifm-color-emphasis-500);
+  font-size: 1.1rem;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.dsa-home__card:hover .dsa-home__card-arrow {
+  color: var(--ifm-color-primary);
+  transform: translateX(3px);
+}
+
+.dsa-home__card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.dsa-home__pill {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-900);
+}
+
+.dsa-home__pill--accent {
+  background: color-mix(in srgb, var(--ifm-color-primary) 18%, transparent);
+  color: var(--ifm-color-primary-dark);
+}
+
+html[data-theme='dark'] .dsa-home__pill {
+  background: #334155;
+  color: #e2e8f0;
+}
+
+html[data-theme='dark'] .dsa-home__pill--accent {
+  background: rgba(56, 189, 248, 0.15);
+  color: #7dd3fc;
+}

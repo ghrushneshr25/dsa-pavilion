@@ -1,0 +1,250 @@
+---
+title: Generate Binary Strings
+---
+
+# Generate Binary Strings
+
+<br />
+
+<table>
+  <tbody>
+    <tr><td>Difficulty</td><td>Easy</td></tr>
+    <tr><td>Tags</td><td>recursion, backtracking</td></tr>
+    <tr><td>Time complexity</td><td>O(2^n)</td></tr>
+    <tr><td>Space complexity</td><td>O(n)</td></tr>
+  </tbody>
+</table>
+
+---
+
+
+
+
+## Description
+
+Generate all possible binary strings of length n.
+Each position can take either 0 or 1.
+
+
+
+## Goal
+
+Generate all 2^n combinations of binary strings.
+
+
+
+## Constraints
+
+1. Each position can be 0 or 1
+2. Use recursion/backtracking
+3. Generate all combinations
+
+
+
+## Algorithm
+
+```text
+GenerateBinaryStrings(arr, index, n):
+
+if index == n
+
+	process current array
+	return
+
+arr[index] = 0
+GenerateBinaryStrings(arr, index+1, n)
+
+arr[index] = 1
+GenerateBinaryStrings(arr, index+1, n)
+```
+
+
+## Notes
+
+- Total combinations = 2^n
+- Forms a binary recursion tree
+
+
+
+
+---
+
+## 🧩 Solution (Go)
+
+```go
+package recursionbacktracking
+
+import "strings"
+
+func GenerateBinaryStrings(n int, array []string, i int, result *[]string) {
+	if i == n {
+		*result = append(*result, strings.Join(array, ""))
+		return
+	}
+	array[i] = "0"
+	GenerateBinaryStrings(n, array, i+1, result)
+	array[i] = "1"
+	GenerateBinaryStrings(n, array, i+1, result)
+}
+
+```
+
+
+
+---
+
+## 🧪 Tests
+
+
+#### Count Validation
+
+
+Ensures total combinations = 2^n
+
+
+```go
+t.Run("Count Validation", func(t *testing.T) {
+
+	tests := []struct {
+		name string
+		n    int
+	}{
+		{"n=1", 1},
+		{"n=2", 2},
+		{"n=3", 3},
+		{"n=4", 4},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			result := run(tt.n)
+			expected := 1 << tt.n
+
+			if len(result) != expected {
+				t.Fatalf("expected %d combinations, got %d", expected, len(result))
+			}
+		})
+	}
+})
+```
+
+
+#### Exact Sequence for n=2
+
+
+Validates deterministic ordering
+
+
+```go
+t.Run("Exact Sequence for n=2", func(t *testing.T) {
+	t.Parallel()
+
+	result := run(2)
+	expected := []string{"00", "01", "10", "11"}
+
+	if len(result) != len(expected) {
+		t.Fatalf("expected %v, got %v", expected, result)
+	}
+
+	for i := range expected {
+		if result[i] != expected[i] {
+			t.Fatalf("expected %v, got %v", expected, result)
+		}
+	}
+})
+```
+
+
+#### Edge Case (empty length)
+
+
+Validates behavior for n = 0
+
+
+```go
+t.Run("Edge Case (empty length)", func(t *testing.T) {
+	t.Parallel()
+
+	result := run(0)
+
+	if result != nil && len(result) != 0 {
+		t.Fatalf("expected nil or empty result, got %v", result)
+	}
+})
+```
+
+
+#### Binary Validity
+
+
+Ensures only '0' and '1' are present
+
+
+```go
+t.Run("Binary Validity", func(t *testing.T) {
+	t.Parallel()
+
+	result := run(3)
+
+	for _, str := range result {
+		for _, ch := range str {
+			if ch != '0' && ch != '1' {
+				t.Fatalf("invalid character found in %s", str)
+			}
+		}
+	}
+})
+```
+
+
+#### Length Validation
+
+
+Ensures each string has length n
+
+
+```go
+t.Run("Length Validation", func(t *testing.T) {
+	t.Parallel()
+
+	n := 3
+	result := run(n)
+
+	for _, str := range result {
+		if len(str) != n {
+			t.Fatalf("expected length %d, got %d in %s", n, len(str), str)
+		}
+	}
+})
+```
+
+
+#### Uniqueness Validation
+
+
+Ensures no duplicate strings exist
+
+
+```go
+t.Run("Uniqueness Validation", func(t *testing.T) {
+	t.Parallel()
+
+	result := run(4)
+
+	seen := make(map[string]bool)
+
+	for _, str := range result {
+		if seen[str] {
+			t.Fatalf("duplicate string found: %s", str)
+		}
+		seen[str] = true
+	}
+})
+```
+
+
+

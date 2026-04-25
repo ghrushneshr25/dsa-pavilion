@@ -1,0 +1,85 @@
+---
+title: Singly Linked List
+---
+
+# Singly Linked List
+
+<br />
+
+<table>
+  <tbody>
+    <tr><td>Difficulty</td><td>Easy</td></tr>
+    <tr><td>Tags</td><td>linked-list, fundamentals</td></tr>
+  </tbody>
+</table>
+
+---
+
+
+## Description
+
+A singly linked list is a linear data structure where each node contains:
+- Data
+- Pointer to the next node
+
+The last node points to nil, indicating the end of the list.
+
+
+## Structure
+
+
+
+### ListNode
+
+
+Represents a single node in the linked list.
+
+
+```go
+type ListNode struct {
+	Data any
+	Next *ListNode
+}
+```
+
+
+### LinkedList
+
+
+Represents the linked list with head pointer and size.
+
+
+```go
+type LinkedList struct {
+	Head *ListNode
+	Size int
+}
+```
+
+
+
+
+## Operations
+
+### Traversal
+
+Traversing means visiting each node from head to nil.
+
+
+```go
+func (list *LinkedList) Display() error {
+	if list.Head == nil {
+		return errors.New("list is empty")
+	}
+
+	current := list.Head
+
+	for current != nil {
+		fmt.Printf("%+v -> ", current.Data)
+		current = current.Next
+	}
+	return nil
+}
+```
+
+
