@@ -66,6 +66,13 @@ type LinkedList struct {
 Traversing means visiting each node from head to nil.
 
 
+### Insertion at Beginning
+
+Inserting the node the at the beginning of linked list
+Time : O(1)
+Space: O(1)
+
+
 ```go
 func (list *LinkedList) Display() error {
 	if list.Head == nil {
@@ -78,6 +85,21 @@ func (list *LinkedList) Display() error {
 		fmt.Printf("%+v -> ", current.Data)
 		current = current.Next
 	}
+	return nil
+}
+
+func (list *LinkedList) InsertAtBeginning(data any) error {
+	node := &ListNode{
+		Data: data,
+		Next: nil,
+	}
+	if list.Head == nil {
+		list.Head = node
+	} else {
+		node.Next = list.Head
+		list.Head = node
+	}
+	list.Size++
 	return nil
 }
 ```
