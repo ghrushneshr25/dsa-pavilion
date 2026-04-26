@@ -62,16 +62,9 @@ type LinkedList struct {
 ## Operations
 
 ### Traversal
-
-Traversing means visiting each node from head to nil.
-
-
-### Insertion at Beginning
-
-Inserting the node the at the beginning of linked list
-Time : O(1)
+Traversing means visiting each node from head to nil.  
+Time: O(n)  
 Space: O(1)
-
 
 ```go
 func (list *LinkedList) Display() error {
@@ -87,7 +80,15 @@ func (list *LinkedList) Display() error {
 	}
 	return nil
 }
+```
 
+
+### Insertion at Beginning
+Inserting the node the at the beginning of linked list  
+Time: O(1)  
+Space: O(1)
+
+```go
 func (list *LinkedList) InsertAtBeginning(data any) error {
 	node := &ListNode{
 		Data: data,
@@ -103,5 +104,7 @@ func (list *LinkedList) InsertAtBeginning(data any) error {
 	return nil
 }
 ```
+
+
 
 
