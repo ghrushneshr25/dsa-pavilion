@@ -18,15 +18,15 @@
   display: block;
 }
 
-/* Top navbar strip: white text to match other right-side controls */
+/* Top navbar: follow theme navbar link colors (light = dark icon, dark = light icon) */
 .navbar__items--right .dsa-navbar-github-link,
 .navbar__items--right .dsa-navbar-github-link:visited {
-  color: #fff !important;
+  color: var(--ifm-navbar-link-color) !important;
 }
 
 .navbar__items--right .dsa-navbar-github-link:hover {
-  color: #fff !important;
-  opacity: 0.88;
+  color: var(--ifm-navbar-link-hover-color) !important;
+  opacity: 1;
 }
 
 .navbar__items--right .dsa-navbar-github-link svg {
