@@ -1,0 +1,330 @@
+---
+title: Unrolled Linked List
+sidebar_position: 5
+---
+
+# Unrolled Linked List
+
+<br />
+
+<table>
+  <tbody>
+    <tr><td>Difficulty</td><td>Medium</td></tr>
+    <tr><td>Tags</td><td>linked-list, advanced, memory-optimization, cache-friendly</td></tr>
+  </tbody>
+</table>
+
+---
+
+
+## Description
+
+An Unrolled Linked List is a variation of a linked list where each node stores multiple elements in a contiguous block (array) instead of a single element. This reduces pointer overhead and improves cache locality, making traversal and sequential access more efficient than traditional linked lists.
+
+
+## Structure
+
+
+
+### UnrolledListNode
+
+
+Represents a node in unrolled linked list storing multiple elements.
+
+
+```go
+type UnrolledListNode struct {
+	Elements []any
+	Count    int
+	Next     *UnrolledListNode
+}
+```
+
+
+### UnrolledLinkedList
+
+
+Represents the unrolled linked list with head pointer, capacity, and size.
+
+
+```go
+type UnrolledLinkedList struct {
+	Head       *UnrolledListNode
+	Capacity   int
+	Size       int
+	Comparator func(a, b any) int
+}
+```
+
+
+
+
+## Operations
+
+### Create Node
+Creates a new node with predefined capacity
+
+```go
+func (list *UnrolledLinkedList) NewNode() *UnrolledListNode {
+	return &UnrolledListNode{
+		Elements: make([]any, list.Capacity),
+		Count:    0,
+		Next:     nil,
+	}
+}
+```
+
+
+### Traversal
+Traversing means visiting each element in the unrolled linked list.  
+Time: O(n)  
+Space: O(1)
+
+```go
+func (list *UnrolledLinkedList) Display() (result string, err error) {
+	if list.Head == nil {
+		err = errors.New("empty list")
+		return
+	}
+	current := list.Head
+	for current != nil {
+
+		for i := 0; i < current.Count; i++ {
+			result = fmt.Sprintf("%+v -> %+v", result, current.Elements[i])
+		}
+		current = current.Next
+	}
+	return
+}
+```
+
+
+### Search
+Searches for a target element in the unrolled linked list.  
+Time: O(√n)  
+Space: O(1)
+
+```go
+func (list *UnrolledLinkedList) Search(target any) (found bool, err error) {
+	if list.Head == nil {
+		return false, errors.New("list is empty")
+	}
+
+	if list.Comparator == nil {
+		return false, fmt.Errorf("comparator not defined")
+	}
+
+	current := list.Head
+
+	for current != nil {
+		if current.Count == 0 {
+			current = current.Next
+			continue
+		}
+
+		blockMax := current.Elements[current.Count-1]
+
+		if list.Comparator(target, blockMax) <= 0 {
+			break
+		}
+		current = current.Next
+	}
+
+	if current == nil {
+		return false, nil
+	}
+
+	for i := 0; i < current.Count; i++ {
+		if list.Comparator(current.Elements[i], target) == 0 {
+			return true, nil
+		}
+	}
+
+	return false, nil
+}
+```
+
+
+### Insert
+Inserts an element while maintaining sorted order across blocks.  
+Time: O(n/k + k)  
+Space: O(1)
+
+```go
+func (list *UnrolledLinkedList) Insert(data any) (err error) {
+	if list.Comparator == nil {
+		return fmt.Errorf("comparator not defined")
+	}
+
+	if list.Head == nil {
+		node := list.NewNode()
+		node.Elements[0] = data
+		node.Count = 1
+		list.Head = node
+		list.Size++
+		return nil
+	}
+
+	current := list.Head
+
+	for current != nil {
+		if current.Count == 0 {
+			break
+		}
+		blockMax := current.Elements[current.Count-1]
+		if list.Comparator(data, blockMax) <= 0 {
+			break
+		}
+		if current.Next == nil {
+			break
+		}
+		current = current.Next
+	}
+
+	pos := 0
+	for pos < current.Count && list.Comparator(current.Elements[pos], data) < 0 {
+		pos++
+	}
+
+	if current.Count < list.Capacity {
+		for i := current.Count; i > pos; i-- {
+			current.Elements[i] = current.Elements[i-1]
+		}
+		current.Elements[pos] = data
+		current.Count++
+		list.Size++
+		return nil
+	}
+
+	mid := list.Capacity / 2
+	newNode := list.NewNode()
+
+	j := 0
+	for i := mid; i < current.Count; i++ {
+		newNode.Elements[j] = current.Elements[i]
+		j++
+	}
+
+	newNode.Count = current.Count - mid
+	current.Count = mid
+
+	newNode.Next = current.Next
+	current.Next = newNode
+
+	if list.Comparator(data, current.Elements[current.Count-1]) > 0 {
+		current = newNode
+		pos = 0
+		for pos < current.Count && list.Comparator(current.Elements[pos], data) < 0 {
+			pos++
+		}
+	} else {
+		pos = 0
+		for pos < current.Count && list.Comparator(current.Elements[pos], data) < 0 {
+			pos++
+		}
+	}
+
+	for i := current.Count; i > pos; i-- {
+		current.Elements[i] = current.Elements[i-1]
+	}
+	current.Elements[pos] = data
+	current.Count++
+	list.Size++
+	return nil
+}
+```
+
+
+### Delete (Sorted + Rebalance)
+Deletes an element while maintaining sorted order.  
+Time: O(n/k + k)  
+Space: O(1)
+
+```go
+func (list *UnrolledLinkedList) Delete(target any) (success bool, err error) {
+	if list.Head == nil {
+		return false, fmt.Errorf("list is empty")
+	}
+
+	if list.Comparator == nil {
+		return false, fmt.Errorf("comparator not defined")
+	}
+
+	var prev *UnrolledListNode
+	current := list.Head
+
+	for current != nil {
+		if current.Count == 0 {
+			prev = current
+			current = current.Next
+			continue
+		}
+
+		blockMax := current.Elements[current.Count-1]
+		if list.Comparator(target, blockMax) <= 0 {
+			break
+		}
+
+		prev = current
+		current = current.Next
+	}
+
+	if current == nil {
+		return false, nil
+	}
+
+	idx := -1
+	for i := 0; i < current.Count; i++ {
+		if list.Comparator(current.Elements[i], target) == 0 {
+			idx = i
+			break
+		}
+	}
+
+	if idx == -1 {
+		return false, nil
+	}
+
+	for i := idx; i < current.Count-1; i++ {
+		current.Elements[i] = current.Elements[i+1]
+	}
+	current.Count--
+	list.Size--
+
+	minThreshold := list.Capacity / 2
+	if current.Count >= minThreshold || current.Next == nil {
+
+		if current.Count == 0 && prev == nil {
+			list.Head = current.Next
+		}
+		return true, nil
+	}
+
+	next := current.Next
+
+	if next.Count > minThreshold {
+
+		current.Elements[current.Count] = next.Elements[0]
+		current.Count++
+
+		for i := 0; i < next.Count-1; i++ {
+			next.Elements[i] = next.Elements[i+1]
+		}
+		next.Count--
+
+		return true, nil
+	}
+
+	for i := 0; i < next.Count; i++ {
+		current.Elements[current.Count+i] = next.Elements[i]
+	}
+	current.Count += next.Count
+	current.Next = next.Next
+
+	return
+}
+```
+
+
+
+
