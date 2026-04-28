@@ -42,6 +42,7 @@ const sidebars = {
             'linkedlist/singly-linked-list',
             'linkedlist/doubly-linked-list',
             'linkedlist/circular-linked-list',
+            'linkedlist/xor-linked-list',
           ],
         },
       ],

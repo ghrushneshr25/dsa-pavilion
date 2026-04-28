@@ -1,0 +1,406 @@
+---
+title: XOR Linked List
+sidebar_position: 4
+---
+
+# XOR Linked List
+
+<br />
+
+<table>
+  <tbody>
+    <tr><td>Difficulty</td><td>Hard</td></tr>
+    <tr><td>Tags</td><td>linked-list, advanced, memory-optimization</td></tr>
+  </tbody>
+</table>
+
+---
+
+
+## Description
+
+An XOR Linked List is a memory-efficient version of a doubly linked list.
+Instead of storing separate prev and next pointers, each node stores a single field:
+both = XOR(prev, next)
+
+
+## Structure
+
+
+Each node contains:
+Data
+Both (XOR of prev and next node addresses)
+
+
+
+### XORListNode
+
+
+Represents a node in XOR linked list storing XOR of prev and next.
+
+
+```go
+type XORListNode struct {
+	Data any
+	Both uintptr
+}
+```
+
+
+### XORLinkedList
+
+
+Represents the XOR linked list with head pointer and size.
+
+
+```go
+type XORLinkedList struct {
+	Head *XORListNode
+	Size int
+}
+```
+
+
+
+
+## Operations
+
+### XOR Helper
+Returns XOR of two node pointers
+
+```go
+func (list *XORLinkedList) xor(firstNode, secondNode *XORListNode) uintptr {
+	return uintptr(unsafe.Pointer(firstNode)) ^ uintptr(unsafe.Pointer(secondNode))
+}
+```
+
+
+### Dereference Pointer
+Converts uintptr back to *XORListNode
+
+```go
+func (list *XORLinkedList) deref(addr uintptr) *XORListNode {
+	return (*XORListNode)(unsafe.Pointer(addr))
+}
+```
+
+
+### Increase Size
+
+
+```go
+func (list *XORLinkedList) IncreaseSize() {
+	list.Size++
+}
+```
+
+
+### Decrease Size
+
+
+```go
+func (list *XORLinkedList) DecreaseSize() {
+	list.Size--
+}
+```
+
+
+### Get Size
+
+
+```go
+func (list *XORLinkedList) GetSize() int {
+	return list.Size
+}
+```
+
+
+### Traversal
+Traverse XOR linked list  
+Time: O(n)  
+Space: O(1)
+
+```go
+func (list *XORLinkedList) Display() (result string, err error) {
+	if list.Head == nil {
+		err = errors.New("list is empty")
+		return
+	}
+
+	var prev *XORListNode = nil
+	current := list.Head
+
+	for current != nil {
+		result = fmt.Sprintf("%+v -> %+v", result, current.Data)
+		nextAddress := current.Both ^ uintptr(unsafe.Pointer(prev))
+		next := list.deref(nextAddress)
+
+		prev = current
+		current = next
+	}
+	return
+}
+```
+
+
+### Insert at Front
+Insert node at beginning  
+Time: O(1)  
+Space: O(1)
+
+```go
+func (list *XORLinkedList) InsertAtFront(data any) (err error) {
+	newNode := &XORListNode{Data: data}
+
+	if list.Head == nil {
+		newNode.Both = 0
+		list.Head = newNode
+		list.IncreaseSize()
+		return
+	}
+
+	oldHead := list.Head
+	newNode.Both = uintptr(unsafe.Pointer(oldHead))
+	oldNext := list.deref(oldHead.Both ^ uintptr(unsafe.Pointer(nil)))
+	oldHead.Both = list.xor(newNode, oldNext)
+	list.Head = newNode
+	list.IncreaseSize()
+	return nil
+}
+```
+
+
+### Insert at End
+Insert node at end  
+Time: O(n)  
+Space: O(1)
+
+```go
+func (list *XORLinkedList) InsertAtEnd(data any) (err error) {
+	newNode := &XORListNode{Data: data}
+
+	if list.Head == nil {
+		newNode.Both = 0
+		list.Head = newNode
+		list.IncreaseSize()
+		return
+	}
+
+	var prev *XORListNode = nil
+	current := list.Head
+
+	for {
+		nextAddr := current.Both ^ uintptr(unsafe.Pointer(prev))
+		next := list.deref(nextAddr)
+		if next == nil {
+			break
+		}
+		prev = current
+		current = next
+	}
+
+	newNode.Both = uintptr(unsafe.Pointer(current))
+
+	current.Both = list.xor(prev, newNode)
+
+	list.IncreaseSize()
+	return nil
+}
+```
+
+
+### Insert at Position
+Insert node at given position  
+Time: O(n)  
+Space: O(1)
+
+```go
+func (list *XORLinkedList) Insert(position int, data any) (err error) {
+	if position < 1 || position > list.GetSize()+1 {
+		err = fmt.Errorf("invalid position")
+		return
+	}
+
+	newNode := &XORListNode{Data: data}
+
+	if list.Head == nil {
+		newNode.Both = 0
+		list.Head = newNode
+		list.IncreaseSize()
+		return
+	}
+
+	size := list.GetSize()
+	position = (position-1)%size + 1
+
+	if position == 1 {
+		return list.InsertAtFront(data)
+	}
+
+	var prev *XORListNode = nil
+	current := list.Head
+
+	for i := 1; i < position; i++ {
+		nextAddr := current.Both ^ uintptr(unsafe.Pointer(prev))
+		next := list.deref(nextAddr)
+
+		prev = current
+		current = next
+	}
+
+	newNode.Both = list.xor(prev, current)
+
+	prevPrevAddr := prev.Both ^ uintptr(unsafe.Pointer(current))
+	prevPrev := list.deref(prevPrevAddr)
+
+	prev.Both = list.xor(prevPrev, newNode)
+
+	nextAddr := current.Both ^ uintptr(unsafe.Pointer(prev))
+	next := list.deref(nextAddr)
+	current.Both = list.xor(newNode, next)
+
+	list.IncreaseSize()
+	return
+}
+```
+
+
+### Delete From Front
+Delete node from beginning  
+Time: O(1)  
+Space: O(1)
+
+```go
+func (list *XORLinkedList) DeleteFromFront() (data any, err error) {
+	if list.Head == nil {
+		return nil, fmt.Errorf("empty list")
+	}
+
+	current := list.Head
+	data = current.Data
+
+	if list.GetSize() == 1 {
+		list.Head = nil
+		list.DecreaseSize()
+		return data, nil
+	}
+
+	next := list.deref(current.Both)
+	nextNextAddr := next.Both ^ uintptr(unsafe.Pointer(current))
+	nextNext := list.deref(nextNextAddr)
+
+	next.Both = list.xor(nil, nextNext)
+
+	list.Head = next
+	list.DecreaseSize()
+	return
+}
+```
+
+
+### Delete From End
+Delete node from end  
+Time: O(n)  
+Space: O(1)
+
+```go
+func (list *XORLinkedList) DeleteFromEnd() (data any, err error) {
+	if list.Head == nil {
+		err = fmt.Errorf("list is empty")
+		return
+	}
+
+	if list.GetSize() == 1 {
+		data := list.Head.Data
+		list.Head = nil
+		list.DecreaseSize()
+		return data, nil
+	}
+
+	var prev *XORListNode = nil
+	current := list.Head
+
+	for {
+		nextAddr := current.Both ^ uintptr(unsafe.Pointer(prev))
+		next := list.deref(nextAddr)
+
+		if next == nil {
+			break
+		}
+
+		prev = current
+		current = next
+	}
+
+	data = current.Data
+
+	prevPrevAddr := prev.Both ^ uintptr(unsafe.Pointer(current))
+	prevPrev := list.deref(prevPrevAddr)
+
+	prev.Both = list.xor(prevPrev, nil)
+	list.DecreaseSize()
+	return
+}
+```
+
+
+### Delete From Position
+Delete node at given position  
+Time: O(n)  
+Space: O(1)
+
+```go
+func (list *XORLinkedList) Delete(position int) (data any, err error) {
+	if list.Head == nil {
+		return nil, fmt.Errorf("empty list")
+	}
+
+	if position <= 0 {
+		return nil, fmt.Errorf("invalid position")
+	}
+
+	size := list.GetSize()
+	position = (position-1)%size + 1
+
+	if position == 1 {
+		return list.DeleteFromFront()
+	}
+	if position == size {
+		return list.DeleteFromEnd()
+	}
+
+	var prev *XORListNode = nil
+	current := list.Head
+
+	for i := 1; i < position; i++ {
+		nextAddr := current.Both ^ uintptr(unsafe.Pointer(prev))
+		next := list.deref(nextAddr)
+
+		prev = current
+		current = next
+	}
+
+	data = current.Data
+
+	nextAddr := current.Both ^ uintptr(unsafe.Pointer(prev))
+	next := list.deref(nextAddr)
+
+	prevPrevAddr := prev.Both ^ uintptr(unsafe.Pointer(current))
+	prevPrev := list.deref(prevPrevAddr)
+
+	nextNextAddr := next.Both ^ uintptr(unsafe.Pointer(current))
+	nextNext := list.deref(nextNextAddr)
+
+	prev.Both = list.xor(prevPrev, next)
+
+	next.Both = list.xor(prev, nextNext)
+
+	list.DecreaseSize()
+
+	return data, nil
+}
+```
+
+
+
+
