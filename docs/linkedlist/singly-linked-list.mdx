@@ -83,25 +83,203 @@ func (list *LinkedList) Display() error {
 ```
 
 
+### Increase Size
+Increase the size of linked list
+
+```go
+func (list *LinkedList) IncreaseSize() {
+	list.Size++
+}
+```
+
+
+### Decrease Size
+Decrease the size of linked list
+
+```go
+func (list *LinkedList) DecreaseSize() {
+	list.Size++
+}
+```
+
+
+### Get Size
+Get the size of linked list
+
+```go
+func (list *LinkedList) GetSize() int {
+	return list.Size
+}
+```
+
+
 ### Insertion at Beginning
 Inserting the node the at the beginning of linked list  
 Time: O(1)  
 Space: O(1)
 
 ```go
-func (list *LinkedList) InsertAtBeginning(data any) error {
+func (list *LinkedList) InsertAtBeginning(data any) (err error) {
 	node := &ListNode{
 		Data: data,
 		Next: nil,
 	}
+	defer list.IncreaseSize()
 	if list.Head == nil {
 		list.Head = node
 	} else {
 		node.Next = list.Head
 		list.Head = node
 	}
-	list.Size++
-	return nil
+	return
+}
+```
+
+
+### Insertion at End
+Inserting the node the at the end of linked list  
+Time: O(1)  
+Space: O(1)
+
+```go
+func (list *LinkedList) InsertAtEnd(data any) (err error) {
+	node := &ListNode{
+		Data: data,
+		Next: nil,
+	}
+	defer list.IncreaseSize()
+	if list.Head == nil {
+		list.Head = node
+	} else {
+		current := list.Head
+		for current.Next != nil {
+			current = current.Next
+		}
+		current.Next = node
+	}
+	return
+}
+```
+
+
+### Insert at Position
+Inserting the node at the given location in the linked list  
+Time: O(n)  
+Space: O(1)
+
+```go
+func (list *LinkedList) Insert(position int, data any) (err error) {
+	if position < 1 || position > list.Size+1 {
+		return fmt.Errorf("index out of bounds: %d", position)
+	}
+	node := &ListNode{
+		Data: data,
+		Next: nil,
+	}
+
+	defer list.IncreaseSize()
+
+	if position == 1 {
+		node.Next = list.Head
+		list.Head = node
+
+		return nil
+	}
+
+	var current *ListNode
+	current = list.Head
+
+	for i := 1; i < position-1; i++ {
+		if current == nil {
+			return errors.New("unexpected nil during traversal")
+		}
+		current = current.Next
+	}
+
+	node.Next = current.Next
+	current.Next = node
+
+	return
+}
+```
+
+
+### Deleting the first node
+Deleting the first node in the linked list  
+Time: O(n)  
+Space: O(1)
+
+```go
+func (list *LinkedList) DeleteFirst() (data any, err error) {
+	if list.Head == nil {
+		return nil, errors.New("empty linked list")
+	}
+
+	defer list.DecreaseSize()
+
+	data = list.Head.Data
+	list.Head = list.Head.Next
+	return
+}
+```
+
+
+### Deleting the last node
+Deleting the last node in the linked list  
+Time: O(n)  
+Space: O(1)
+
+```go
+func (list *LinkedList) DeleteLast() (data any, err error) {
+	if list.Head == nil {
+		return nil, errors.New("empty linked list")
+	}
+
+	defer list.DecreaseSize()
+
+	if list.Head.Next == nil {
+		data = list.Head.Data
+		list.Head = nil
+		return
+	}
+
+	current := list.Head
+	for current.Next.Next != nil {
+		current = current.Next
+	}
+	data = current.Next.Data
+	current.Next = nil
+	return
+}
+```
+
+
+### Deleting an intermediate node
+Deleting the node at a given location in the linked list  
+Time: O(n)  
+Space: O(1)
+
+```go
+func (list *LinkedList) Delete(position int) (data any, err error) {
+	if position < 1 || position > list.GetSize() {
+		return nil, fmt.Errorf("index out of bound: %d", position)
+	}
+	defer list.DecreaseSize()
+	if position == 1 {
+		data = list.Head.Data
+		list.Head = list.Head.Next
+		return
+	}
+	current := list.Head
+	for i := 1; i < position-1; i++ {
+		current = current.Next
+	}
+	if current.Next == nil {
+		return nil, fmt.Errorf("unexpected nil node at position %d", position)
+	}
+	data = current.Next.Data
+	current.Next = current.Next.Next
+	return
 }
 ```
 
