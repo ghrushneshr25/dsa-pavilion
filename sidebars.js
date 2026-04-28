@@ -44,6 +44,7 @@ const sidebars = {
             'linkedlist/circular-linked-list',
             'linkedlist/xor-linked-list',
             'linkedlist/unrolled-linked-list',
+            'linkedlist/skip-list',
           ],
         },
       ],

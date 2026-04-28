@@ -1,0 +1,207 @@
+---
+title: Skip List
+sidebar_position: 6
+---
+
+# Skip List
+
+<br />
+
+<table>
+  <tbody>
+    <tr><td>Difficulty</td><td>Medium</td></tr>
+    <tr><td>Tags</td><td>linked-list, probabilistic, advanced</td></tr>
+  </tbody>
+</table>
+
+---
+
+
+## Description
+
+A Skip List is a probabilistic data structure that allows fast search, insertion, and deletion in O(log n) average time. It consists of multiple levels of linked lists, where higher levels allow skipping multiple nodes.
+
+
+## Structure
+
+
+
+### SkipListNode
+
+
+```go
+type SkipListNode struct {
+	Value   any
+	Forward []*SkipListNode
+}
+```
+
+
+### SkipList
+
+
+```go
+type SkipList struct {
+	Head       *SkipListNode
+	MaxLevel   int
+	Level      int
+	P          float64
+	Comparator func(a, b any) int
+}
+```
+
+
+
+
+## Operations
+
+### Constructor
+
+
+```go
+func NewSkipList(maxLevel int, p float64, cmp func(a, b any) int) *SkipList {
+	head := &SkipListNode{
+		Forward: make([]*SkipListNode, maxLevel),
+	}
+
+	return &SkipList{
+		Head:       head,
+		MaxLevel:   maxLevel,
+		Level:      1,
+		P:          p,
+		Comparator: cmp,
+	}
+}
+```
+
+
+### Random Level
+
+
+```go
+func (list *SkipList) randomLevel() int {
+	level := 1
+	for rand.Float64() < list.P && level < list.MaxLevel {
+		level++
+	}
+	return level
+}
+```
+
+
+### Search
+
+
+```go
+func (list *SkipList) Search(target any) (bool, error) {
+	if list.Comparator == nil {
+		return false, fmt.Errorf("comparator not defined")
+	}
+
+	current := list.Head
+
+	for i := list.Level - 1; i >= 0; i-- {
+		for current.Forward[i] != nil &&
+			list.Comparator(current.Forward[i].Value, target) < 0 {
+			current = current.Forward[i]
+		}
+	}
+
+	current = current.Forward[0]
+
+	return current != nil &&
+		list.Comparator(current.Value, target) == 0, nil
+}
+```
+
+
+### Insert
+
+
+```go
+func (list *SkipList) Insert(value any) error {
+	if list.Comparator == nil {
+		return fmt.Errorf("comparator not defined")
+	}
+
+	update := make([]*SkipListNode, list.MaxLevel)
+	current := list.Head
+
+	for i := list.Level - 1; i >= 0; i-- {
+		for current.Forward[i] != nil &&
+			list.Comparator(current.Forward[i].Value, value) < 0 {
+			current = current.Forward[i]
+		}
+		update[i] = current
+	}
+
+	newLevel := list.randomLevel()
+
+	if newLevel > list.Level {
+		for i := list.Level; i < newLevel; i++ {
+			update[i] = list.Head
+		}
+		list.Level = newLevel
+	}
+
+	newNode := &SkipListNode{
+		Value:   value,
+		Forward: make([]*SkipListNode, newLevel),
+	}
+
+	for i := 0; i < newLevel; i++ {
+		newNode.Forward[i] = update[i].Forward[i]
+		update[i].Forward[i] = newNode
+	}
+
+	return nil
+}
+```
+
+
+### Delete
+
+
+```go
+func (list *SkipList) Delete(value any) (bool, error) {
+	if list.Comparator == nil {
+		return false, fmt.Errorf("comparator not defined")
+	}
+
+	update := make([]*SkipListNode, list.MaxLevel)
+	current := list.Head
+
+	for i := list.Level - 1; i >= 0; i-- {
+		for current.Forward[i] != nil &&
+			list.Comparator(current.Forward[i].Value, value) < 0 {
+			current = current.Forward[i]
+		}
+		update[i] = current
+	}
+
+	current = current.Forward[0]
+
+	if current == nil ||
+		list.Comparator(current.Value, value) != 0 {
+		return false, nil
+	}
+
+	for i := 0; i < list.Level; i++ {
+		if update[i].Forward[i] != current {
+			break
+		}
+		update[i].Forward[i] = current.Forward[i]
+	}
+
+	for list.Level > 1 &&
+		list.Head.Forward[list.Level-1] == nil {
+		list.Level--
+	}
+
+	return true, nil
+}
+```
+
+
+
+
