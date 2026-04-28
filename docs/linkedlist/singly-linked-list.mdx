@@ -63,7 +63,7 @@ Time: O(n)
 Space: O(1)
 
 ```go
-func (list *LinkedList) Display() error {
+func (list *LinkedList) Display() (err error) {
 	if list.Head == nil {
 		return errors.New("list is empty")
 	}
@@ -74,7 +74,7 @@ func (list *LinkedList) Display() error {
 		fmt.Printf("%+v -> ", current.Data)
 		current = current.Next
 	}
-	return nil
+	return
 }
 ```
 
@@ -94,7 +94,7 @@ Decrease the size of linked list
 
 ```go
 func (list *LinkedList) DecreaseSize() {
-	list.Size++
+	list.Size--
 }
 ```
 

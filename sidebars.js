@@ -39,6 +39,7 @@ const sidebars = {
           type: 'category',
           label: '📘 Concepts',
           items: [
+            'linkedlist/doubly-linked-list',
             'linkedlist/singly-linked-list',
           ],
         },

@@ -1,5 +1,6 @@
 {
   "index": "https://github.com/ghrushneshr25/dsa",
+  "linkedlist/doubly-linked-list": "https://github.com/ghrushneshr25/dsa/blob/master/linkedlist/doublylinkedlist.go",
   "linkedlist/index": "https://github.com/ghrushneshr25/dsa/tree/master/linkedlist",
   "linkedlist/singly-linked-list": "https://github.com/ghrushneshr25/dsa/blob/master/linkedlist/singlelinkedlist.go",
   "recursion-backtracking/check-if-array-is-sorted-using-recursion": "https://github.com/ghrushneshr25/dsa/blob/master/recursion-backtracking/problem2.go",
