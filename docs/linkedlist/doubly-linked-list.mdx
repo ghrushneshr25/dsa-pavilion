@@ -66,14 +66,15 @@ Time: O(n)
 Space: O(1)
 
 ```go
-func (list *DoublyLinkedList) Display() (err error) {
+func (list *DoublyLinkedList) Display() (result string, err error) {
 	if list.Head == nil {
-		return errors.New("list is empty")
+		err = errors.New("list is empty")
+		return
 	}
 
 	current := list.Head
 	for current != nil {
-		fmt.Printf("%+v <->", current.Data)
+		result = fmt.Sprintf("%+v <-> %+v", result, current.Data)
 		current = current.Next
 	}
 	return

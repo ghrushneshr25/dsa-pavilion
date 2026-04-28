@@ -1,5 +1,6 @@
 {
   "index": "https://github.com/ghrushneshr25/dsa",
+  "linkedlist/circular-linked-list": "https://github.com/ghrushneshr25/dsa/blob/master/linkedlist/circularLinkedList.go",
   "linkedlist/doubly-linked-list": "https://github.com/ghrushneshr25/dsa/blob/master/linkedlist/doublylinkedlist.go",
   "linkedlist/index": "https://github.com/ghrushneshr25/dsa/tree/master/linkedlist",
   "linkedlist/singly-linked-list": "https://github.com/ghrushneshr25/dsa/blob/master/linkedlist/singlelinkedlist.go",

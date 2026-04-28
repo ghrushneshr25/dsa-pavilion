@@ -1,0 +1,225 @@
+---
+title: Circular Linked List
+sidebar_position: 3
+---
+
+# Circular Linked List
+
+<br />
+
+<table>
+  <tbody>
+    <tr><td>Difficulty</td><td>Easy</td></tr>
+    <tr><td>Tags</td><td>linked-list, fundamentals</td></tr>
+  </tbody>
+</table>
+
+---
+
+
+## Description
+
+In a circular linked list, every node point to its next node in the sequence but the last node points to the first node in the list.
+
+
+## Structure
+
+
+
+### CircularListNode
+
+
+Represents a single node in the circular linked list.
+
+
+```go
+type CircularListNode struct {
+	Data any
+	Next *CircularListNode
+}
+```
+
+
+### CircularLinkedList
+
+
+Represents the circular linked list with head pointer and size.
+
+
+```go
+type CircularLinkedList struct {
+	Size int
+	Head *CircularListNode
+}
+```
+
+
+
+
+## Operations
+
+### Traversal
+Traversing means visiting each node of circular linked list.  
+Time: O(n)  
+Space: O(1)
+
+```go
+func (list *CircularLinkedList) Display() (result string, err error) {
+	if list.Head == nil {
+		err = errors.New("list is empty")
+		return
+	}
+
+	current := list.Head
+
+	for {
+		fmt.Printf("%+v", current.Data)
+		current = current.Next
+		if current == list.Head {
+			break
+		}
+		fmt.Printf("->")
+	}
+	return
+}
+```
+
+
+### Increase Size
+Increase the size of linked list
+
+```go
+func (list *CircularLinkedList) IncreaseSize() {
+	list.Size++
+}
+```
+
+
+### Decrease Size
+Decrease the size of linked list
+
+```go
+func (list *CircularLinkedList) DecreaseSize() {
+	list.Size--
+}
+```
+
+
+### Get Size
+Get the size of linked list
+
+```go
+func (list *CircularLinkedList) GetSize() int {
+	return list.Size
+}
+```
+
+
+### Insert at Front
+Inserting the node the at the beginning of circular linked list  
+Time: O(n)  
+Space: O(1)
+
+```go
+func (list *CircularLinkedList) InsertAtFront(data any) (err error) {
+	newNode := &CircularListNode{
+		Data: data,
+	}
+	newNode.Next = newNode
+
+	if list.Head == nil {
+		list.Head = newNode
+		list.IncreaseSize()
+		return
+	}
+
+	current := list.Head
+	newNode.Next = current
+
+	for current.Next != list.Head {
+		current = current.Next
+	}
+
+	current.Next = newNode
+	list.Head = newNode
+	list.IncreaseSize()
+	return
+}
+```
+
+
+### Insert at End
+Inserting the node the at the end of circular linked list  
+Time: O(n)  
+Space: O(1)
+
+```go
+func (list *CircularLinkedList) InsertAtEnd(data any) (err error) {
+	newNode := &CircularListNode{
+		Data: data,
+	}
+	newNode.Next = newNode
+
+	if list.Head == nil {
+		list.Head = newNode
+		list.IncreaseSize()
+		return
+	}
+
+	current := list.Head
+
+	for current.Next != list.Head {
+		current = current.Next
+	}
+	newNode.Next = list.Head
+	current.Next = newNode
+	list.IncreaseSize()
+	return
+}
+```
+
+
+### Insert at Position
+Inserting the node the at a given position of circular linked list  
+Time: O(n)  
+Space: O(1)
+
+```go
+func (list *CircularLinkedList) InsertAtPosition(position int, data any) (err error) {
+	newNode := &CircularListNode{
+		Data: data,
+	}
+	newNode.Next = newNode
+
+	if list.Head == nil {
+		list.Head = newNode
+		list.IncreaseSize()
+		return
+	}
+
+	if position < 0 {
+		err = fmt.Errorf("invalid position")
+		return
+	}
+	position = (position-1)%list.GetSize() + 1
+	if position == 1 {
+		return list.InsertAtFront(data)
+	}
+
+	current := list.Head
+
+	for i := 1; i < position-1; i++ {
+		current = current.Next
+	}
+
+	newNode.Next = current.Next
+	current.Next = newNode
+	list.IncreaseSize()
+
+	return
+}
+```
+
+
+
+
