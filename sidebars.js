@@ -47,6 +47,13 @@ const sidebars = {
             'linkedlist/skip-list',
           ],
         },
+        {
+          type: 'category',
+          label: '🧩 Problems',
+          items: [
+            'linkedlist/find-kth-node-from-end-of-linked-list',
+          ],
+        },
       ],
     },
   ],
