@@ -41,9 +41,7 @@ sidebar_position: {{.SidebarPosition}}
 {{end}}
 {{end}}
 
----
-
-## Solution (Go)
+### Solution (Go)
 
 ```go
 {{$a.Code}}

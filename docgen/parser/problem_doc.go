@@ -104,10 +104,15 @@ func segmentBodyMarkdown(sectionName string, lines []string) string {
 	return b.String()
 }
 
-// segmentToMarkdown renders "## Name" plus body (same heading level as generate-binary-strings.mdx).
-func segmentToMarkdown(seg docSegment) string {
+// segmentToMarkdown renders a heading (## or ###) plus body.
+func segmentToMarkdown(seg docSegment, heading string) string {
+	if heading == "" {
+		heading = "##"
+	}
 	var b strings.Builder
-	b.WriteString("\n## ")
+	b.WriteString("\n")
+	b.WriteString(heading)
+	b.WriteString(" ")
 	b.WriteString(seg.Name)
 	b.WriteString("\n\n")
 	b.WriteString(segmentBodyMarkdown(seg.Name, seg.Lines))
@@ -178,14 +183,18 @@ func ParseProblemMultiApproach(file string) (preamble string, approaches []Probl
 
 	var pb strings.Builder
 	for _, s := range preambleSegs {
-		pb.WriteString(segmentToMarkdown(s))
+		pb.WriteString(segmentToMarkdown(s, "##"))
 	}
 	preamble = strings.TrimSpace(pb.String())
 
 	for _, g := range groups {
 		var ab strings.Builder
-		for _, s := range g {
-			ab.WriteString(segmentToMarkdown(s))
+		for i, s := range g {
+			level := "###"
+			if i == 0 {
+				level = "##"
+			}
+			ab.WriteString(segmentToMarkdown(s, level))
 		}
 		approaches = append(approaches, ProblemApproachDoc{
 			Markdown: strings.TrimSpace(ab.String()),
@@ -195,7 +204,7 @@ func ParseProblemMultiApproach(file string) (preamble string, approaches []Probl
 	if len(summarySegs) > 0 {
 		var sb strings.Builder
 		for _, s := range summarySegs {
-			sb.WriteString(segmentToMarkdown(s))
+			sb.WriteString(segmentToMarkdown(s, "##"))
 		}
 		summary = strings.TrimSpace(sb.String())
 	}
