@@ -13,7 +13,7 @@ description: Companion notes and Go implementations for Data Structures and Algo
       <span>Go implementations</span>
     </div>
     <div className="dsa-hero__layout">
-      <div>
+      <div className="dsa-hero__copy">
         <div className="dsa-kicker">Catalog online</div>
         <h1 className="dsa-hero__title">
           Data Structures
