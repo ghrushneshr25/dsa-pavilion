@@ -74,10 +74,22 @@ KthFromEnd_BruteForce(list, k):
 ```
 
 
-## Notes
 
-- Two traversals: first count nodes, second walk (length - k) steps from the head
-- Time O(n), extra space O(1)
+### Description
+
+Uses two traversals to find kth node from end.
+
+
+
+<table>
+  <tbody>
+    <tr><td>Time complexity</td><td>O(n)</td></tr>
+    <tr><td>Space complexity</td><td>O(1)</td></tr>
+  </tbody>
+</table>
+
+
+
 
 ---
 
@@ -90,11 +102,6 @@ import (
 	"errors"
 	"fmt"
 )
-
-// @operation KthFromEnd_BruteForce
-// @description Uses two traversals to find kth node from end.
-// @time: O(n)
-// @space: O(1)
 
 func KthFromEnd_BruteForce(list *LinkedList, k int) (any, error) {
 	if list == nil || list.Head == nil {
@@ -160,10 +167,22 @@ KthFromEnd_HashMap(list, k):
 ```
 
 
-## Notes
 
-- One pass to fill the map; answer is the node at index (n - k) with 0-based indices
-- Time O(n), extra space O(n) for the map
+### Description
+
+Stores nodes in map for direct access.
+
+
+
+<table>
+  <tbody>
+    <tr><td>Time complexity</td><td>O(n)</td></tr>
+    <tr><td>Space complexity</td><td>O(n)</td></tr>
+  </tbody>
+</table>
+
+
+
 
 ---
 
@@ -176,11 +195,6 @@ import (
 	"errors"
 	"fmt"
 )
-
-// @operation KthFromEnd_BruteForce
-// @description Uses two traversals to find kth node from end.
-// @time: O(n)
-// @space: O(1)
 
 func KthFromEnd_HashMap(list *LinkedList, k int) (any, error) {
 	if list == nil || list.Head == nil {
@@ -242,10 +256,22 @@ KthFromEnd_TwoPointer(list, k):
 ```
 
 
-## Notes
 
-- Single pass after advancing fast by k: gap between slow and fast stays k nodes until fast exits the list
-- Time O(n), extra space O(1); preferred when memory matters
+### Description
+
+Uses two pointers to find kth node in one traversal.
+
+
+
+<table>
+  <tbody>
+    <tr><td>Time complexity</td><td>O(n)</td></tr>
+    <tr><td>Space complexity</td><td>O(1)</td></tr>
+  </tbody>
+</table>
+
+
+
 
 ---
 
@@ -258,11 +284,6 @@ import (
 	"errors"
 	"fmt"
 )
-
-// @operation KthFromEnd_BruteForce
-// @description Uses two traversals to find kth node from end.
-// @time: O(n)
-// @space: O(1)
 
 func KthFromEnd_TwoPointer(list *LinkedList, k int) (data any, err error) {
 	if list == nil || list.Head == nil {
@@ -301,6 +322,261 @@ func KthFromEnd_TwoPointer(list *LinkedList, k int) (data any, err error) {
 
 - Most optimal approach is Two Pointer
 - Avoid extra traversal and O(n) extra space when you can use two pointers
+
+
+
+
+---
+
+## 🧪 Tests
+
+
+#### Basic Correctness
+
+
+Validates expected outputs for normal cases
+
+
+```go
+t.Run("Basic Correctness", func(t *testing.T) {
+
+	list := buildList([]int{1, 2, 3, 4, 5})
+
+	tests := []struct {
+		k        int
+		expected int
+	}{
+		{1, 5},
+		{2, 4},
+		{3, 3},
+		{5, 1},
+	}
+
+	for _, tt := range tests {
+		result, _ := linkedlist.KthFromEnd_TwoPointer(list, tt.k)
+		if result != tt.expected {
+			t.Fatalf("k=%d expected %d got %v", tt.k, tt.expected, result)
+		}
+
+		result, _ = linkedlist.KthFromEnd_BruteForce(list, tt.k)
+		if result != tt.expected {
+			t.Fatalf("k=%d expected %d got %v", tt.k, tt.expected, result)
+		}
+
+		result, _ = linkedlist.KthFromEnd_HashMap(list, tt.k)
+		if result != tt.expected {
+			t.Fatalf("k=%d expected %d got %v", tt.k, tt.expected, result)
+		}
+	}
+})
+```
+
+
+#### All Approaches Consistency
+
+
+Ensures all 3 approaches return same result
+
+
+```go
+t.Run("All Approaches Consistency", func(t *testing.T) {
+
+	list := buildList([]int{10, 20, 30, 40, 50})
+
+	k := 2
+
+	bf, _ := linkedlist.KthFromEnd_BruteForce(list, k)
+	hm, _ := linkedlist.KthFromEnd_HashMap(list, k)
+	tp, _ := linkedlist.KthFromEnd_TwoPointer(list, k)
+
+	if bf != hm || hm != tp {
+		t.Fatalf("mismatch: brute=%v hashmap=%v twoPointer=%v", bf, hm, tp)
+	}
+})
+```
+
+
+#### Single Element
+
+
+Edge case: list with one node
+
+
+```go
+t.Run("Single Element", func(t *testing.T) {
+
+	list := buildList([]int{42})
+
+	result, _ := linkedlist.KthFromEnd_TwoPointer(list, 1)
+	if result != 42 {
+		t.Fatalf("expected 42 got %v", result)
+	}
+
+	result, _ = linkedlist.KthFromEnd_BruteForce(list, 1)
+	if result != 42 {
+		t.Fatalf("expected 42 got %v", result)
+	}
+
+	result, _ = linkedlist.KthFromEnd_HashMap(list, 1)
+	if result != 42 {
+		t.Fatalf("expected 42 got %v", result)
+	}
+})
+```
+
+
+#### Invalid K
+
+
+k less than equal to 0 should error
+
+
+```go
+t.Run("Invalid K", func(t *testing.T) {
+
+	list := buildList([]int{1, 2, 3})
+
+	_, err := linkedlist.KthFromEnd_TwoPointer(list, 0)
+	if err == nil {
+		t.Fatalf("expected error for k=0")
+	}
+
+	_, err = linkedlist.KthFromEnd_TwoPointer(list, -1)
+	if err == nil {
+		t.Fatalf("expected error for negative k")
+	}
+
+	_, err = linkedlist.KthFromEnd_BruteForce(list, 0)
+	if err == nil {
+		t.Fatalf("expected error for k=0")
+	}
+
+	_, err = linkedlist.KthFromEnd_BruteForce(list, -1)
+	if err == nil {
+		t.Fatalf("expected error for negative k")
+	}
+
+	_, err = linkedlist.KthFromEnd_HashMap(list, 0)
+	if err == nil {
+		t.Fatalf("expected error for k=0")
+	}
+
+	_, err = linkedlist.KthFromEnd_HashMap(list, -1)
+	if err == nil {
+		t.Fatalf("expected error for negative k")
+	}
+})
+```
+
+
+#### K Greater Than Length
+
+
+k > size should error
+
+
+```go
+t.Run("K Greater Than Length", func(t *testing.T) {
+
+	list := buildList([]int{1, 2, 3})
+
+	_, err := linkedlist.KthFromEnd_TwoPointer(list, 5)
+
+	if err == nil {
+		t.Fatalf("expected error for k > length")
+	}
+
+	_, err = linkedlist.KthFromEnd_HashMap(list, 5)
+
+	if err == nil {
+		t.Fatalf("expected error for k > length")
+	}
+
+	_, err = linkedlist.KthFromEnd_BruteForce(list, 5)
+
+	if err == nil {
+		t.Fatalf("expected error for k > length")
+	}
+})
+```
+
+
+#### Empty List
+
+
+nil or empty list should error
+
+
+```go
+t.Run("Empty List", func(t *testing.T) {
+
+	list := &linkedlist.LinkedList{}
+
+	_, err := linkedlist.KthFromEnd_TwoPointer(list, 1)
+
+	if err == nil {
+		t.Fatalf("expected error for empty list")
+	}
+
+	_, err = linkedlist.KthFromEnd_HashMap(list, 5)
+
+	if err == nil {
+		t.Fatalf("expected error for empty list")
+	}
+
+	_, err = linkedlist.KthFromEnd_BruteForce(list, 5)
+
+	if err == nil {
+		t.Fatalf("expected error for empty list")
+	}
+})
+```
+
+
+#### Stress Small Range
+
+
+Validates correctness across multiple inputs
+
+
+```go
+t.Run("Stress Small Range", func(t *testing.T) {
+
+	values := []int{1, 2, 3, 4, 5, 6, 7, 8}
+	list := buildList(values)
+
+	for k := 1; k <= len(values); k++ {
+		expected := values[len(values)-k]
+
+		result, err := linkedlist.KthFromEnd_TwoPointer(list, k)
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+
+		if result != expected {
+			t.Fatalf("k=%d expected %v got %v", k, expected, result)
+		}
+
+		result, err = linkedlist.KthFromEnd_BruteForce(list, k)
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+
+		if result != expected {
+			t.Fatalf("k=%d expected %v got %v", k, expected, result)
+		}
+
+		result, err = linkedlist.KthFromEnd_HashMap(list, k)
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+
+		if result != expected {
+			t.Fatalf("k=%d expected %v got %v", k, expected, result)
+		}
+	}
+})
+```
 
 
 
