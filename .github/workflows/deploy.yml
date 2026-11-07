@@ -1,6 +1,5 @@
-# Build and deploy the Docusaurus site to GitHub Pages.
-# Triggered on pushes to this repo (including bot commits from dsa's
-# regenerate-docs workflow, which runs docgen/ in this repository).
+# Build and deploy the Docusaurus site to GitHub Pages after merge to master
+# (including squash-merges from dsa's regenerate-docs PRs).
 
 name: Deploy Docusaurus
 

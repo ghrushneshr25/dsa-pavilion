@@ -58,4 +58,6 @@ yarn start
 yarn build
 ```
 
-Pushes to `master` deploy GitHub Pages via `.github/workflows/deploy.yml`. Docs themselves are regenerated from the `dsa` repo by `.github/workflows/regenerate-docs.yml`.
+Pushes to `master` deploy GitHub Pages via `.github/workflows/deploy.yml`.
+
+When Go sources are pushed to [`dsa`](https://github.com/ghrushneshr25/dsa) `master`, CI generates docs, opens a PR on this repo, waits for the **Build** check (`npm run build`), then squash-merges. Pull requests on `dsa` run the same generate + build as a status check without publishing.
