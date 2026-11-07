@@ -1,41 +1,61 @@
-# Website
+# DSA Pavilion
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+Docusaurus site for [Data Structures and Algorithms in Go](https://github.com/ghrushneshr25/dsa), plus the **docgen** tool that builds these pages from annotated Go source.
 
-## Installation
+Live site: https://ghrushneshr25.github.io/dsa-pavilion/
+
+## Layout
+
+```
+dsa-pavilion/          this repo
+  docgen/              Go generator
+  docs/                generated MDX (do not edit by hand)
+  src/                 theme, CSS, GitHub route map
+  sidebars.js          generated
+dsa/                   sibling repo — source of truth
+```
+
+Clone them as siblings:
+
+```text
+some-folder/
+  dsa/
+  dsa-pavilion/
+```
+
+## Generate docs
+
+Requires Go 1.24+ and the `dsa` repo at `../dsa`.
+
+```bash
+yarn generate
+# or
+go -C docgen run .
+./generate.sh
+```
+
+This wipes and rewrites `docs/`, `sidebars.js`, `src/data/dsaGithubRoutes.json`, and `../dsa/readme.md`.
+
+Readme only (no site files):
+
+```bash
+yarn generate:readme
+```
+
+From the `dsa` repo: `make readme` (looks for `../dsa-pavilion/docgen`).
+
+## Local development
 
 ```bash
 yarn
-```
-
-## Local Development
-
-```bash
+yarn generate
 yarn start
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-## Build
+## Build / deploy
 
 ```bash
 yarn build
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-## Deployment
-
-Using SSH:
-
-```bash
-USE_SSH=true yarn deploy
-```
-
-Not using SSH:
-
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+Pushes to `master` deploy GitHub Pages via `.github/workflows/deploy.yml`. Docs themselves are regenerated from the `dsa` repo by `.github/workflows/regenerate-docs.yml`.

@@ -10,7 +10,6 @@ const config = {
     v4: true,
   },
 
-  // ✅ CHANGE THIS (critical for GitHub Pages)
   url: 'https://ghrushneshr25.github.io',
 
   // GitHub Pages project: https://<org>.github.io/<projectName>/
@@ -45,8 +44,6 @@ const config = {
   ],
 
   themeConfig: {
-    image: 'img/docusaurus-social-card.jpg',
-
     colorMode: {
       respectPrefersColorScheme: true,
     },

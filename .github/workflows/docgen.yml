@@ -1,0 +1,33 @@
+# Test the Go generator that lives in this repo (docgen/).
+name: docgen
+
+on:
+  push:
+    branches: [master, main]
+    paths:
+      - "docgen/**"
+      - ".github/workflows/docgen.yml"
+  pull_request:
+    paths:
+      - "docgen/**"
+      - ".github/workflows/docgen.yml"
+  workflow_dispatch:
+
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docgen
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24.x"
+          cache-dependency-path: docgen/go.mod
+      - name: Test
+        run: go test ./...
+      - name: Vet
+        run: go vet ./...
+      - name: Build
+        run: go build -o /dev/null .
