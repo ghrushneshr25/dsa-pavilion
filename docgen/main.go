@@ -31,6 +31,7 @@ func main() {
 		githubRepo       = flag.String("github-repo", envOr("DOCGEN_GITHUB_REPO", "https://github.com/ghrushneshr25/dsa"), "DSA repo URL (no trailing slash) for navbar source links")
 		githubBranch     = flag.String("github-branch", envOr("DOCGEN_GITHUB_BRANCH", "master"), "Branch name for GitHub blob/tree links")
 		githubRoutesPath = flag.String("github-routes", envOr("DOCGEN_GITHUB_ROUTES", filepath.Join(pavilionRoot, "src", "data", "dsaGithubRoutes.json")), "Output JSON: doc id -> GitHub URL")
+		searchIndexPath  = flag.String("search-index", envOr("DOCGEN_SEARCH_INDEX", filepath.Join(pavilionRoot, "src", "data", "dsaSearchIndex.json")), "Output JSON: searchable concepts and problems")
 	)
 	flag.Parse()
 
@@ -96,6 +97,7 @@ func main() {
 	githubRoutes := map[string]string{
 		"index": repoRoot,
 	}
+	var searchIndex []renderer.SearchEntry
 
 	categories, err := os.ReadDir(codeDirAbs)
 	if err != nil {
@@ -267,6 +269,17 @@ func main() {
 				Difficulty: meta["difficulty"],
 				Tags:       meta["tags"],
 			}
+			tags := renderer.SplitTags(meta["tags"])
+			if tags == nil {
+				tags = []string{}
+			}
+			searchIndex = append(searchIndex, renderer.SearchEntry{
+				ID:       docID,
+				Title:    title,
+				Type:     docType,
+				Category: cat.Name,
+				Tags:     tags,
+			})
 			if docType == "concept" {
 				cat.Concepts = append(cat.Concepts, docID)
 				conceptItems = append(conceptItems, entry)
@@ -309,6 +322,16 @@ func main() {
 	}
 	if err := renderer.WriteGithubRoutes(routesAbs, githubRoutes); err != nil {
 		fmt.Fprintln(os.Stderr, "github routes:", err)
+		os.Exit(1)
+	}
+
+	searchAbs, err := filepath.Abs(*searchIndexPath)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "search-index path:", err)
+		os.Exit(1)
+	}
+	if err := renderer.WriteSearchIndex(searchAbs, searchIndex); err != nil {
+		fmt.Fprintln(os.Stderr, "search index:", err)
 		os.Exit(1)
 	}
 

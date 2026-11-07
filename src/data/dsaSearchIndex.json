@@ -1,0 +1,128 @@
+[
+  {
+    "id": "recursion-backtracking/towers-of-hanoi",
+    "title": "Towers of Hanoi",
+    "type": "problem",
+    "category": "Recursion Backtracking",
+    "tags": [
+      "recursion",
+      "backtracking",
+      "divide-and-conquer"
+    ]
+  },
+  {
+    "id": "recursion-backtracking/check-if-array-is-sorted-using-recursion",
+    "title": "Check if Array is Sorted Using Recursion",
+    "type": "problem",
+    "category": "Recursion Backtracking",
+    "tags": [
+      "recursion"
+    ]
+  },
+  {
+    "id": "recursion-backtracking/generate-binary-strings",
+    "title": "Generate Binary Strings",
+    "type": "problem",
+    "category": "Recursion Backtracking",
+    "tags": [
+      "recursion",
+      "backtracking"
+    ]
+  },
+  {
+    "id": "recursion-backtracking/generate-k-ary-strings",
+    "title": "Generate K-ary Strings",
+    "type": "problem",
+    "category": "Recursion Backtracking",
+    "tags": [
+      "recursion",
+      "backtracking"
+    ]
+  },
+  {
+    "id": "recursion-backtracking/largest-connected-region-in-matrix",
+    "title": "Largest Connected Region in Matrix",
+    "type": "problem",
+    "category": "Recursion Backtracking",
+    "tags": [
+      "recursion",
+      "dfs",
+      "graph"
+    ]
+  },
+  {
+    "id": "linked-list/find-kth-node-from-end-of-linked-list",
+    "title": "Find Kth Node from End of Linked List",
+    "type": "problem",
+    "category": "Linked List",
+    "tags": [
+      "linked-list",
+      "two-pointers",
+      "hashmap"
+    ]
+  },
+  {
+    "id": "linked-list/singly-linked-list",
+    "title": "Singly Linked List",
+    "type": "concept",
+    "category": "Linked List",
+    "tags": [
+      "linked-list",
+      "fundamentals"
+    ]
+  },
+  {
+    "id": "linked-list/doubly-linked-list",
+    "title": "Doubly Linked List",
+    "type": "concept",
+    "category": "Linked List",
+    "tags": [
+      "linked-list",
+      "fundamentals"
+    ]
+  },
+  {
+    "id": "linked-list/circular-linked-list",
+    "title": "Circular Linked List",
+    "type": "concept",
+    "category": "Linked List",
+    "tags": [
+      "linked-list",
+      "fundamentals"
+    ]
+  },
+  {
+    "id": "linked-list/xor-linked-list",
+    "title": "XOR Linked List",
+    "type": "concept",
+    "category": "Linked List",
+    "tags": [
+      "linked-list",
+      "advanced",
+      "memory-optimization"
+    ]
+  },
+  {
+    "id": "linked-list/unrolled-linked-list",
+    "title": "Unrolled Linked List",
+    "type": "concept",
+    "category": "Linked List",
+    "tags": [
+      "linked-list",
+      "advanced",
+      "memory-optimization",
+      "cache-friendly"
+    ]
+  },
+  {
+    "id": "linked-list/skip-list",
+    "title": "Skip List",
+    "type": "concept",
+    "category": "Linked List",
+    "tags": [
+      "linked-list",
+      "probabilistic",
+      "advanced"
+    ]
+  }
+]

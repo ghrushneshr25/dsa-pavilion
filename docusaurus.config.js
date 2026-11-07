@@ -82,6 +82,10 @@ const config = {
       },
       items: [
         {
+          type: 'custom-search',
+          position: 'right',
+        },
+        {
           type: 'custom-githubSource',
           position: 'right',
           label: 'GitHub',

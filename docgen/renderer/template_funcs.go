@@ -5,7 +5,7 @@ import (
 	"text/template"
 )
 
-func splitTags(s string) []string {
+func SplitTags(s string) []string {
 	if s == "" {
 		return nil
 	}
@@ -24,6 +24,6 @@ func splitTags(s string) []string {
 func templateFuncs() template.FuncMap {
 	return template.FuncMap{
 		"inc":       inc,
-		"splitTags": splitTags,
+		"splitTags": SplitTags,
 	}
 }
