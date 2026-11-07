@@ -1,5 +1,86 @@
 /* DSA Pavilion — visual language aligned with ghrushneshr25.github.io */
 
+@property --bg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #000000;
+}
+@property --bg-2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #0a0a0a;
+}
+@property --panel {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #111111;
+}
+@property --panel-2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #1a1a1a;
+}
+@property --line {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ffffff1f;
+}
+@property --line-strong {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ffffff3d;
+}
+@property --text {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ffffff;
+}
+@property --text-dim {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #a3a3a3;
+}
+@property --text-mute {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #737373;
+}
+@property --accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ffffff;
+}
+@property --accent-dim {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ffffff14;
+}
+@property --accent-glow {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ffffff33;
+}
+@property --ink {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #000000;
+}
+@property --nav-bg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #000000db;
+}
+@property --terminal-bg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #050505;
+}
+@property --grid-line {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ffffff0a;
+}
+
 :root {
   --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -23,6 +104,7 @@
   --nav-h: 64px;
   --radius: 2px;
   --max: 1120px;
+  --theme-ease: 0ms;
   --ifm-container-width: 1120px;
   --ifm-container-width-xl: 1120px;
 
@@ -107,11 +189,27 @@ html[data-theme='dark'] {
 }
 
 html {
-  --theme-ease: 0ms;
   background: var(--bg);
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   transition:
+    --bg var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
+    --bg-2 var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
+    --panel var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
+    --panel-2 var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
+    --line var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
+    --line-strong var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
+    --text var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
+    --text-dim var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
+    --text-mute var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
+    --accent var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
+    --accent-dim var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
+    --accent-glow var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
+    --ink var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
+    --nav-bg var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
+    --terminal-bg var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
+    --grid-line var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
     background-color var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1),
     color var(--theme-ease) cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1118,7 +1216,7 @@ html.docs-doc-id-index .dsa-home.dsa-home--book {
 }
 
 .theme-wave {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: 10000;
   pointer-events: none;
@@ -1216,10 +1314,6 @@ html.docs-doc-id-index .dsa-home.dsa-home--book {
 
 html.is-theme-waving,
 html.is-theme-waving body {
-  overflow: hidden;
-}
-
-html.is-theme-waving #__docusaurus {
   overflow: hidden;
 }
 

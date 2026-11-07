@@ -1,6 +1,7 @@
-import React, {useCallback, useRef, type ReactNode} from 'react';
+import React, {useCallback, useEffect, useRef, useState, type ReactNode} from 'react';
 import clsx from 'clsx';
 import useIsBrowser from '@docusaurus/useIsBrowser';
+import {useColorMode} from '@docusaurus/theme-common';
 import type {Props} from '@theme/ColorModeToggle';
 import type {ColorMode} from '@docusaurus/theme-common';
 
@@ -39,6 +40,13 @@ function prefersReducedMotion(): boolean {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
+function applyThemeMeta(theme: ColorMode) {
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) {
+    meta.setAttribute('content', theme === 'light' ? '#ffffff' : '#000000');
+  }
+}
+
 function playThemeWave(next: ColorMode, onMid: () => void, onDone: () => void): () => void {
   if (prefersReducedMotion()) {
     onMid();
@@ -47,14 +55,14 @@ function playThemeWave(next: ColorMode, onMid: () => void, onDone: () => void): 
   }
 
   const direction = next === 'light' ? 'to-light' : 'to-dark';
-  const host = document.getElementById('__docusaurus') ?? document.body;
   const root = document.createElement('div');
   root.className = `theme-wave theme-wave--${direction}`;
   root.setAttribute('aria-hidden', 'true');
   root.innerHTML = '<div class="theme-wave__veil"></div>';
 
-  host.appendChild(root);
+  document.body.appendChild(root);
   document.documentElement.classList.add('is-theme-waving');
+
   void root.offsetWidth;
   root.classList.add('is-active');
 
@@ -76,41 +84,59 @@ function playThemeWave(next: ColorMode, onMid: () => void, onDone: () => void): 
   };
 }
 
-function ColorModeToggle({className, buttonClassName, value, onChange}: Props): ReactNode {
+function ColorModeToggle({buttonClassName}: Props): ReactNode {
   const isBrowser = useIsBrowser();
-  const busyRef = useRef(false);
+  const {colorMode, setColorMode} = useColorMode();
+  const theme = colorMode === 'light' ? 'light' : 'dark';
+  const [busy, setBusy] = useState(false);
+  const themeRef = useRef<ColorMode>(theme);
   const cleanupRef = useRef<(() => void) | null>(null);
 
-  const current: ColorMode = value === 'light' ? 'light' : 'dark';
-  const next: ColorMode = current === 'dark' ? 'light' : 'dark';
+  useEffect(() => {
+    themeRef.current = theme;
+  }, [theme]);
 
-  const handleClick = useCallback(() => {
-    if (!isBrowser || busyRef.current) {
+  useEffect(
+    () => () => {
+      cleanupRef.current?.();
+    },
+    [],
+  );
+
+  const toggle = useCallback(() => {
+    if (!isBrowser || busy) {
       return;
     }
-    busyRef.current = true;
+
+    const next: ColorMode = themeRef.current === 'dark' ? 'light' : 'dark';
+
+    setBusy(true);
     cleanupRef.current?.();
     cleanupRef.current = playThemeWave(
       next,
-      () => onChange(next),
       () => {
-        busyRef.current = false;
+        setColorMode(next);
+        applyThemeMeta(next);
+      },
+      () => {
+        setBusy(false);
         cleanupRef.current = null;
       },
     );
-  }, [isBrowser, next, onChange]);
+  }, [busy, isBrowser, setColorMode]);
 
   return (
     <div className="dsa-color-toggle">
       <button
         className={clsx('dsa-nav-btn', buttonClassName)}
         type="button"
-        onClick={handleClick}
-        disabled={!isBrowser}
-        title={current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-        aria-label={current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+        onClick={toggle}
+        disabled={!isBrowser || busy}
+        title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+        aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+        aria-busy={busy}
       >
-        {current === 'dark' ? <SunIcon /> : <MoonIcon />}
+        {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
       </button>
     </div>
   );
