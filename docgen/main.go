@@ -32,6 +32,7 @@ func main() {
 		githubBranch     = flag.String("github-branch", envOr("DOCGEN_GITHUB_BRANCH", "master"), "Branch name for GitHub blob/tree links")
 		githubRoutesPath = flag.String("github-routes", envOr("DOCGEN_GITHUB_ROUTES", filepath.Join(pavilionRoot, "src", "data", "dsaGithubRoutes.json")), "Output JSON: doc id -> GitHub URL")
 		searchIndexPath  = flag.String("search-index", envOr("DOCGEN_SEARCH_INDEX", filepath.Join(pavilionRoot, "src", "data", "dsaSearchIndex.json")), "Output JSON: searchable concepts and problems")
+		catalogPath      = flag.String("catalog", envOr("DOCGEN_CATALOG", filepath.Join(pavilionRoot, "static", "catalog.json")), "Public JSON catalog counts for the portfolio")
 	)
 	flag.Parse()
 
@@ -332,6 +333,16 @@ func main() {
 	}
 	if err := renderer.WriteSearchIndex(searchAbs, searchIndex); err != nil {
 		fmt.Fprintln(os.Stderr, "search index:", err)
+		os.Exit(1)
+	}
+
+	catalogAbs, err := filepath.Abs(*catalogPath)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "catalog path:", err)
+		os.Exit(1)
+	}
+	if err := renderer.WriteCatalog(catalogAbs, renderer.CatalogFromSidebar(sidebarData)); err != nil {
+		fmt.Fprintln(os.Stderr, "catalog:", err)
 		os.Exit(1)
 	}
 
