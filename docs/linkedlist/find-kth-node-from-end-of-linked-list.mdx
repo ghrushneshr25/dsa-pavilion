@@ -81,19 +81,15 @@ Uses two traversals to find kth node from end.
 
 
 
-<table>
-  <tbody>
-    <tr><td>Time complexity</td><td>O(n)</td></tr>
-    <tr><td>Space complexity</td><td>O(1)</td></tr>
-  </tbody>
-</table>
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(n)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
 
 
 
 
 ---
 
-## 🧩 Solution (Go)
+## Solution (Go)
 
 ```go
 package linkedlist
@@ -174,19 +170,15 @@ Stores nodes in map for direct access.
 
 
 
-<table>
-  <tbody>
-    <tr><td>Time complexity</td><td>O(n)</td></tr>
-    <tr><td>Space complexity</td><td>O(n)</td></tr>
-  </tbody>
-</table>
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(n)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(n)</span></p>
 
 
 
 
 ---
 
-## 🧩 Solution (Go)
+## Solution (Go)
 
 ```go
 package linkedlist
@@ -263,19 +255,15 @@ Uses two pointers to find kth node in one traversal.
 
 
 
-<table>
-  <tbody>
-    <tr><td>Time complexity</td><td>O(n)</td></tr>
-    <tr><td>Space complexity</td><td>O(1)</td></tr>
-  </tbody>
-</table>
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(n)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
 
 
 
 
 ---
 
-## 🧩 Solution (Go)
+## Solution (Go)
 
 ```go
 package linkedlist
@@ -328,8 +316,10 @@ func KthFromEnd_TwoPointer(list *LinkedList, k int) (data any, err error) {
 
 ---
 
-## 🧪 Tests
+## Tests
 
+
+<div className="dsa-test">
 
 #### Basic Correctness
 
@@ -371,6 +361,9 @@ t.Run("Basic Correctness", func(t *testing.T) {
 })
 ```
 
+</div>
+
+<div className="dsa-test">
 
 #### All Approaches Consistency
 
@@ -395,6 +388,9 @@ t.Run("All Approaches Consistency", func(t *testing.T) {
 })
 ```
 
+</div>
+
+<div className="dsa-test">
 
 #### Single Element
 
@@ -424,6 +420,9 @@ t.Run("Single Element", func(t *testing.T) {
 })
 ```
 
+</div>
+
+<div className="dsa-test">
 
 #### Invalid K
 
@@ -468,6 +467,9 @@ t.Run("Invalid K", func(t *testing.T) {
 })
 ```
 
+</div>
+
+<div className="dsa-test">
 
 #### K Greater Than Length
 
@@ -500,6 +502,9 @@ t.Run("K Greater Than Length", func(t *testing.T) {
 })
 ```
 
+</div>
+
+<div className="dsa-test">
 
 #### Empty List
 
@@ -532,6 +537,9 @@ t.Run("Empty List", func(t *testing.T) {
 })
 ```
 
+</div>
+
+<div className="dsa-test">
 
 #### Stress Small Range
 
@@ -578,5 +586,6 @@ t.Run("Stress Small Range", func(t *testing.T) {
 })
 ```
 
+</div>
 
 

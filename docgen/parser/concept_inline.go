@@ -24,8 +24,8 @@ var reInlineSpace = regexp.MustCompile(`^\s*//\s*@space:\s*(.*)$`)
 var reTypeStruct = regexp.MustCompile(`^\s*type\s+(\w+)\s+struct\s*`)
 
 // ParseConceptInlineFromFile reads // @structure, // @description, // @operation, // @time, and // @space
-// in line comments. Structure prose is taken from // @description; operation prose is those lines
-// up to the following func declaration, rendered as description + Time + Space in markdown.
+// in line comments. Structure prose is taken from // @description; operation description,
+// time, and space are taken from the lines up to the following func declaration.
 func ParseConceptInlineFromFile(path string) (ConceptInlineBody, error) {
 	out := ConceptInlineBody{StructDoc: make(map[string]string)}
 	data, err := os.ReadFile(path)
@@ -36,8 +36,13 @@ func ParseConceptInlineFromFile(path string) (ConceptInlineBody, error) {
 	for i := 0; i < len(lines); {
 		line := lines[i]
 		if opTitle, ok := titleFromOperationTagLine(line); ok {
-			prose, next := parseOpMetadataLines(lines, i+1)
-			out.Operations = append(out.Operations, OperationProse{Title: opTitle, Prose: strings.TrimSpace(prose)})
+			prose, timeC, spaceC, next := parseOpMetadataLines(lines, i+1)
+			out.Operations = append(out.Operations, OperationProse{
+				Title: opTitle,
+				Prose: strings.TrimSpace(prose),
+				Time:  timeC,
+				Space: spaceC,
+			})
 			i = next
 			continue
 		}
@@ -72,35 +77,28 @@ func isGoFuncLine(s string) bool {
 	return r == ' ' || r == '\t' || r == '('
 }
 
-// parseOpMetadataLines returns markdown prose and the line index of the func keyword.
-func parseOpMetadataLines(lines []string, start int) (prose string, funcLine int) {
+// parseOpMetadataLines returns description prose, @time, @space, and the func line index.
+func parseOpMetadataLines(lines []string, start int) (prose, timeC, spaceC string, funcLine int) {
 	var b strings.Builder
 	for j := start; j < len(lines); j++ {
 		ln := lines[j]
 		if isGoFuncLine(ln) {
-			return b.String(), j
+			return b.String(), timeC, spaceC, j
 		}
 		if m := reInlineDescription.FindStringSubmatch(ln); len(m) == 2 {
 			if t := strings.TrimSpace(m[1]); t != "" {
 				if b.Len() > 0 {
-					// Tight: hard line break (not a blank paragraph) between parts
 					b.WriteString("  \n")
 				}
 				b.WriteString(t)
 			}
 		} else if m := reInlineTime.FindStringSubmatch(ln); len(m) == 2 {
-			if b.Len() > 0 {
-				b.WriteString("  \n")
-			}
-			b.WriteString("Time: " + strings.TrimSpace(m[1]))
+			timeC = strings.TrimSpace(m[1])
 		} else if m := reInlineSpace.FindStringSubmatch(ln); len(m) == 2 {
-			if b.Len() > 0 {
-				b.WriteString("  \n")
-			}
-			b.WriteString("Space: " + strings.TrimSpace(m[1]))
+			spaceC = strings.TrimSpace(m[1])
 		}
 	}
-	return b.String(), len(lines)
+	return b.String(), timeC, spaceC, len(lines)
 }
 
 type nextStructParse struct {

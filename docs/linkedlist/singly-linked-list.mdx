@@ -59,9 +59,13 @@ type LinkedList struct {
 ## Operations
 
 ### Traversal
-Traversing means visiting each node from head to nil.  
-Time: O(n)  
-Space: O(1)
+Traversing means visiting each node from head to nil.
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(n)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *LinkedList) Display() (result string, err error) {
@@ -84,6 +88,8 @@ func (list *LinkedList) Display() (result string, err error) {
 ### Increase Size
 Increase the size of linked list
 
+
+
 ```go
 func (list *LinkedList) IncreaseSize() {
 	list.Size++
@@ -93,6 +99,8 @@ func (list *LinkedList) IncreaseSize() {
 
 ### Decrease Size
 Decrease the size of linked list
+
+
 
 ```go
 func (list *LinkedList) DecreaseSize() {
@@ -104,6 +112,8 @@ func (list *LinkedList) DecreaseSize() {
 ### Get Size
 Get the size of linked list
 
+
+
 ```go
 func (list *LinkedList) GetSize() int {
 	return list.Size
@@ -112,9 +122,13 @@ func (list *LinkedList) GetSize() int {
 
 
 ### Insertion at Beginning
-Inserting the node the at the beginning of linked list  
-Time: O(1)  
-Space: O(1)
+Inserting the node the at the beginning of linked list
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(1)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *LinkedList) InsertAtBeginning(data any) (err error) {
@@ -137,9 +151,13 @@ func (list *LinkedList) InsertAtBeginning(data any) (err error) {
 
 
 ### Insertion at End
-Inserting the node the at the end of linked list  
-Time: O(1)  
-Space: O(1)
+Inserting the node the at the end of linked list
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(1)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *LinkedList) InsertAtEnd(data any) (err error) {
@@ -165,9 +183,13 @@ func (list *LinkedList) InsertAtEnd(data any) (err error) {
 
 
 ### Insert at Position
-Inserting the node at the given location in the linked list  
-Time: O(n)  
-Space: O(1)
+Inserting the node at the given location in the linked list
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(n)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *LinkedList) Insert(position int, data any) (err error) {
@@ -207,9 +229,13 @@ func (list *LinkedList) Insert(position int, data any) (err error) {
 
 
 ### Deleting the first node
-Deleting the first node in the linked list  
-Time: O(n)  
-Space: O(1)
+Deleting the first node in the linked list
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(n)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *LinkedList) DeleteFirst() (data any, err error) {
@@ -227,9 +253,13 @@ func (list *LinkedList) DeleteFirst() (data any, err error) {
 
 
 ### Deleting the last node
-Deleting the last node in the linked list  
-Time: O(n)  
-Space: O(1)
+Deleting the last node in the linked list
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(n)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *LinkedList) DeleteLast() (data any, err error) {
@@ -258,9 +288,13 @@ func (list *LinkedList) DeleteLast() (data any, err error) {
 
 
 ### Deleting an intermediate node
-Deleting the node at a given location in the linked list  
-Time: O(n)  
-Space: O(1)
+Deleting the node at a given location in the linked list
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(n)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *LinkedList) Delete(position int) (data any, err error) {

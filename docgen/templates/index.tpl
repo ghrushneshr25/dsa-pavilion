@@ -5,7 +5,9 @@ pagination_prev: null
 pagination_next: null
 ---
 
-# 📂 {{.Title}}
+<div class="dsa-kicker">{{.Slug}}</div>
+
+# {{.Title}}
 
 {{if .ConceptItems}}
 ## Concepts

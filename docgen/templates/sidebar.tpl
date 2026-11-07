@@ -18,7 +18,7 @@ const sidebars = {
 {{- if .Concepts }}
         {
           type: 'category',
-          label: '📘 Concepts',
+          label: 'Concepts',
           items: [
 {{- range .Concepts }}
             '{{.}}',
@@ -29,7 +29,7 @@ const sidebars = {
 {{- if .Problems }}
         {
           type: 'category',
-          label: '🧩 Problems',
+          label: 'Problems',
           items: [
 {{- range .Problems }}
             '{{.}}',

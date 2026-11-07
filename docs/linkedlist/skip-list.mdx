@@ -58,6 +58,8 @@ type SkipList struct {
 ### Constructor
 
 
+
+
 ```go
 func NewSkipList(maxLevel int, p float64, cmp func(a, b any) int) *SkipList {
 	head := &SkipListNode{
@@ -78,6 +80,8 @@ func NewSkipList(maxLevel int, p float64, cmp func(a, b any) int) *SkipList {
 ### Random Level
 
 
+
+
 ```go
 func (list *SkipList) randomLevel() int {
 	level := 1
@@ -90,6 +94,8 @@ func (list *SkipList) randomLevel() int {
 
 
 ### Search
+
+
 
 
 ```go
@@ -116,6 +122,8 @@ func (list *SkipList) Search(target any) (bool, error) {
 
 
 ### Insert
+
+
 
 
 ```go
@@ -160,6 +168,8 @@ func (list *SkipList) Insert(value any) error {
 
 
 ### Delete
+
+
 
 
 ```go

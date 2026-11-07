@@ -16,7 +16,7 @@ const sidebars = {
       items: [
         {
           type: 'category',
-          label: '🧩 Problems',
+          label: 'Problems',
           items: [
             'recursion-backtracking/towers-of-hanoi',
             'recursion-backtracking/check-if-array-is-sorted-using-recursion',
@@ -37,7 +37,7 @@ const sidebars = {
       items: [
         {
           type: 'category',
-          label: '📘 Concepts',
+          label: 'Concepts',
           items: [
             'linkedlist/singly-linked-list',
             'linkedlist/doubly-linked-list',
@@ -49,7 +49,7 @@ const sidebars = {
         },
         {
           type: 'category',
-          label: '🧩 Problems',
+          label: 'Problems',
           items: [
             'linkedlist/find-kth-node-from-end-of-linked-list',
           ],

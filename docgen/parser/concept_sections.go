@@ -9,6 +9,8 @@ import (
 type OperationProse struct {
 	Title string
 	Prose string
+	Time  string
+	Space string
 }
 
 // ConceptDoc is parsed prose from a concept file's leading /* */ block.

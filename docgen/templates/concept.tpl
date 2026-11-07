@@ -47,6 +47,12 @@ sidebar_position: {{.SidebarPosition}}
 ### {{.Title}}
 {{.Prose}}
 
+{{if or .Time .Space}}
+
+<p class="dsa-complexity">{{- if .Time -}}<span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>{{.Time}}</span>{{- end -}}{{- if .Space -}}<span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>{{.Space}}</span>{{- end -}}</p>
+
+{{end}}
+
 ```go
 {{.Code}}
 ```

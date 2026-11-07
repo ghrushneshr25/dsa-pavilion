@@ -35,19 +35,15 @@ sidebar_position: {{.SidebarPosition}}
 
 {{end}}
 {{if or $a.Time $a.Space}}
-<table>
-  <tbody>
-{{if $a.Time}}    <tr><td>Time complexity</td><td>{{$a.Time}}</td></tr>
-{{end}}{{if $a.Space}}    <tr><td>Space complexity</td><td>{{$a.Space}}</td></tr>
-{{end}}  </tbody>
-</table>
+
+<p class="dsa-complexity">{{- if $a.Time -}}<span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>{{$a.Time}}</span>{{- end -}}{{- if $a.Space -}}<span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>{{$a.Space}}</span>{{- end -}}</p>
 
 {{end}}
 {{end}}
 
 ---
 
-## 🧩 Solution (Go)
+## Solution (Go)
 
 ```go
 {{$a.Code}}
@@ -65,7 +61,7 @@ sidebar_position: {{.SidebarPosition}}
 
 ---
 
-## 🧩 Solution (Go)
+## Solution (Go)
 
 ```go
 {{.Code}}
@@ -76,9 +72,11 @@ sidebar_position: {{.SidebarPosition}}
 
 ---
 
-## 🧪 Tests
+## Tests
 
 {{range .Subtests}}
+<div className="dsa-test">
+
 #### {{.Name}}
 
 {{if .Desc}}
@@ -89,5 +87,6 @@ sidebar_position: {{.SidebarPosition}}
 {{.Code}}
 ```
 
+</div>
 {{end}}
 {{end}}

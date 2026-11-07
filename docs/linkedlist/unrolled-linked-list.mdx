@@ -64,6 +64,8 @@ type UnrolledLinkedList struct {
 ### Create Node
 Creates a new node with predefined capacity
 
+
+
 ```go
 func (list *UnrolledLinkedList) NewNode() *UnrolledListNode {
 	return &UnrolledListNode{
@@ -76,9 +78,13 @@ func (list *UnrolledLinkedList) NewNode() *UnrolledListNode {
 
 
 ### Traversal
-Traversing means visiting each element in the unrolled linked list.  
-Time: O(n)  
-Space: O(1)
+Traversing means visiting each element in the unrolled linked list.
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(n)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *UnrolledLinkedList) Display() (result string, err error) {
@@ -100,9 +106,13 @@ func (list *UnrolledLinkedList) Display() (result string, err error) {
 
 
 ### Search
-Searches for a target element in the unrolled linked list.  
-Time: O(√n)  
-Space: O(1)
+Searches for a target element in the unrolled linked list.
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(√n)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *UnrolledLinkedList) Search(target any) (found bool, err error) {
@@ -146,9 +156,13 @@ func (list *UnrolledLinkedList) Search(target any) (found bool, err error) {
 
 
 ### Insert
-Inserts an element while maintaining sorted order across blocks.  
-Time: O(n/k + k)  
-Space: O(1)
+Inserts an element while maintaining sorted order across blocks.
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(n/k + k)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *UnrolledLinkedList) Insert(data any) (err error) {
@@ -236,9 +250,13 @@ func (list *UnrolledLinkedList) Insert(data any) (err error) {
 
 
 ### Delete (Sorted + Rebalance)
-Deletes an element while maintaining sorted order.  
-Time: O(n/k + k)  
-Space: O(1)
+Deletes an element while maintaining sorted order.
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(n/k + k)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *UnrolledLinkedList) Delete(target any) (success bool, err error) {

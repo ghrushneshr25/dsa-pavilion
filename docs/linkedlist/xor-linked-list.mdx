@@ -68,6 +68,8 @@ type XORLinkedList struct {
 ### XOR Helper
 Returns XOR of two node pointers
 
+
+
 ```go
 func (list *XORLinkedList) xor(firstNode, secondNode *XORListNode) uintptr {
 	return uintptr(unsafe.Pointer(firstNode)) ^ uintptr(unsafe.Pointer(secondNode))
@@ -78,6 +80,8 @@ func (list *XORLinkedList) xor(firstNode, secondNode *XORListNode) uintptr {
 ### Dereference Pointer
 Converts uintptr back to *XORListNode
 
+
+
 ```go
 func (list *XORLinkedList) deref(addr uintptr) *XORListNode {
 	return (*XORListNode)(unsafe.Pointer(addr))
@@ -86,6 +90,8 @@ func (list *XORLinkedList) deref(addr uintptr) *XORListNode {
 
 
 ### Increase Size
+
+
 
 
 ```go
@@ -98,6 +104,8 @@ func (list *XORLinkedList) IncreaseSize() {
 ### Decrease Size
 
 
+
+
 ```go
 func (list *XORLinkedList) DecreaseSize() {
 	list.Size--
@@ -108,6 +116,8 @@ func (list *XORLinkedList) DecreaseSize() {
 ### Get Size
 
 
+
+
 ```go
 func (list *XORLinkedList) GetSize() int {
 	return list.Size
@@ -116,9 +126,13 @@ func (list *XORLinkedList) GetSize() int {
 
 
 ### Traversal
-Traverse XOR linked list  
-Time: O(n)  
-Space: O(1)
+Traverse XOR linked list
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(n)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *XORLinkedList) Display() (result string, err error) {
@@ -144,9 +158,13 @@ func (list *XORLinkedList) Display() (result string, err error) {
 
 
 ### Insert at Front
-Insert node at beginning  
-Time: O(1)  
-Space: O(1)
+Insert node at beginning
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(1)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *XORLinkedList) InsertAtFront(data any) (err error) {
@@ -171,9 +189,13 @@ func (list *XORLinkedList) InsertAtFront(data any) (err error) {
 
 
 ### Insert at End
-Insert node at end  
-Time: O(n)  
-Space: O(1)
+Insert node at end
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(n)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *XORLinkedList) InsertAtEnd(data any) (err error) {
@@ -210,9 +232,13 @@ func (list *XORLinkedList) InsertAtEnd(data any) (err error) {
 
 
 ### Insert at Position
-Insert node at given position  
-Time: O(n)  
-Space: O(1)
+Insert node at given position
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(n)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *XORLinkedList) Insert(position int, data any) (err error) {
@@ -266,9 +292,13 @@ func (list *XORLinkedList) Insert(position int, data any) (err error) {
 
 
 ### Delete From Front
-Delete node from beginning  
-Time: O(1)  
-Space: O(1)
+Delete node from beginning
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(1)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *XORLinkedList) DeleteFromFront() (data any, err error) {
@@ -299,9 +329,13 @@ func (list *XORLinkedList) DeleteFromFront() (data any, err error) {
 
 
 ### Delete From End
-Delete node from end  
-Time: O(n)  
-Space: O(1)
+Delete node from end
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(n)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *XORLinkedList) DeleteFromEnd() (data any, err error) {
@@ -345,9 +379,13 @@ func (list *XORLinkedList) DeleteFromEnd() (data any, err error) {
 
 
 ### Delete From Position
-Delete node at given position  
-Time: O(n)  
-Space: O(1)
+Delete node at given position
+
+
+
+<p class="dsa-complexity"><span class="dsa-complexity__item"><span class="dsa-complexity__k">time</span>O(n)</span><span class="dsa-complexity__item"><span class="dsa-complexity__k">space</span>O(1)</span></p>
+
+
 
 ```go
 func (list *XORLinkedList) Delete(position int) (data any, err error) {

@@ -7,6 +7,8 @@ type OperationSubsection struct {
 	Title string
 	Prose string
 	Code  string
+	Time  string
+	Space string
 }
 
 // ProblemApproach is one approach block for multi-approach problem docs (Algorithm + Notes + Go).

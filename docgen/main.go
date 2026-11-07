@@ -186,11 +186,11 @@ func main() {
 								if codeBySection != nil {
 									code = codeBySection[parser.NormalizeOpTitle(s.Title)]
 								}
-								opSubs = append(opSubs, renderer.OperationSubsection{Title: s.Title, Prose: s.Prose, Code: code})
+								opSubs = append(opSubs, renderer.OperationSubsection{Title: s.Title, Prose: s.Prose, Code: code, Time: s.Time, Space: s.Space})
 							}
 						} else {
 							for _, s := range opProseList {
-								opSubs = append(opSubs, renderer.OperationSubsection{Title: s.Title, Prose: s.Prose, Code: ""})
+								opSubs = append(opSubs, renderer.OperationSubsection{Title: s.Title, Prose: s.Prose, Code: "", Time: s.Time, Space: s.Space})
 							}
 						}
 					}
