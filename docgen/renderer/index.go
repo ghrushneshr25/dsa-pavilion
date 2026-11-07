@@ -2,6 +2,7 @@ package renderer
 
 import (
 	"os"
+	"path/filepath"
 	"text/template"
 )
 
@@ -21,7 +22,7 @@ type Index struct {
 }
 
 func RenderIndex(idx Index) {
-	t := template.Must(template.ParseFiles(templateFile("index.tpl")))
+	t := template.Must(template.New(filepath.Base(templateFile("index.tpl"))).Funcs(templateFuncs()).ParseFiles(templateFile("index.tpl")))
 	f, _ := os.Create(idx.Path)
 	defer f.Close()
 	t.Execute(f, idx)

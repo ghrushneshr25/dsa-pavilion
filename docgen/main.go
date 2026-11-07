@@ -23,7 +23,7 @@ func main() {
 
 	var (
 		readmeOnly       = flag.Bool("readme-only", false, "Only write the dsa readme table. Does not touch docs/site.")
-		codeDir          = flag.String("code", envOr("DOCGEN_CODE", filepath.Join(pavilionRoot, "..", "dsa")), "Path to the DSA Go module root (category subdirs, e.g. linkedlist/)")
+		codeDir          = flag.String("code", envOr("DOCGEN_CODE", filepath.Join(pavilionRoot, "..", "dsa")), "Path to the DSA Go module root (category subdirs, e.g. linked-list/)")
 		docsDir          = flag.String("docs", envOr("DOCGEN_DOCS", filepath.Join(pavilionRoot, "docs")), "Output directory for generated .mdx")
 		sidebar          = flag.String("sidebar", envOr("DOCGEN_SIDEBAR", filepath.Join(pavilionRoot, "sidebars.js")), "Output path for sidebars.js")
 		readmeOut        = flag.String("readme", envOr("DOCGEN_README", filepath.Join(pavilionRoot, "..", "dsa", "readme.md")), "Output path for generated readme (code repo index table)")

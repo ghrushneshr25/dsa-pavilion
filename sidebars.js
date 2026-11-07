@@ -29,29 +29,29 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Linkedlist',
+      label: 'Linked List',
       link: {
         type: 'doc',
-        id: 'linkedlist/index',
+        id: 'linked-list/index',
       },
       items: [
         {
           type: 'category',
           label: 'Concepts',
           items: [
-            'linkedlist/singly-linked-list',
-            'linkedlist/doubly-linked-list',
-            'linkedlist/circular-linked-list',
-            'linkedlist/xor-linked-list',
-            'linkedlist/unrolled-linked-list',
-            'linkedlist/skip-list',
+            'linked-list/singly-linked-list',
+            'linked-list/doubly-linked-list',
+            'linked-list/circular-linked-list',
+            'linked-list/xor-linked-list',
+            'linked-list/unrolled-linked-list',
+            'linked-list/skip-list',
           ],
         },
         {
           type: 'category',
           label: 'Problems',
           items: [
-            'linkedlist/find-kth-node-from-end-of-linked-list',
+            'linked-list/find-kth-node-from-end-of-linked-list',
           ],
         },
       ],

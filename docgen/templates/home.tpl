@@ -3,6 +3,7 @@ slug: /
 title: Home
 hide_title: true
 displayed_sidebar: null
+hide_table_of_contents: true
 description: Companion notes and Go implementations for Data Structures and Algorithms Made Easy by Narasimha Karumanchi.
 ---
 
@@ -75,8 +76,12 @@ description: Companion notes and Go implementations for Data Structures and Algo
             <span className="dsa-home__card-arrow" aria-hidden="true">→</span>
           </div>
           <div className="dsa-home__card-stats">
+{{- if $cat.Concepts }}
             <span className="dsa-home__pill">{{ len $cat.Concepts }} concept{{ if ne (len $cat.Concepts) 1 }}s{{ end }}</span>
+{{- end }}
+{{- if $cat.Problems }}
             <span className="dsa-home__pill dsa-home__pill--accent">{{ len $cat.Problems }} problem{{ if ne (len $cat.Problems) 1 }}s{{ end }}</span>
+{{- end }}
           </div>
         </div>
       </a>

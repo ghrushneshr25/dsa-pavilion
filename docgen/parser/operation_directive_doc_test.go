@@ -12,8 +12,8 @@ import (
 func kthFixture(t *testing.T) string {
 	t.Helper()
 	candidates := []string{
-		filepath.Join("..", "..", "..", "dsa", "linkedlist", "kthNodeFromEnd.go"), // dsa-pavilion/docgen/parser
-		filepath.Join("..", "..", "dsa", "linkedlist", "kthNodeFromEnd.go"),       // legacy sibling docgen/parser
+		filepath.Join("..", "..", "..", "dsa", "linked-list", "kthNodeFromEnd.go"), // dsa-pavilion/docgen/parser
+		filepath.Join("..", "..", "dsa", "linked-list", "kthNodeFromEnd.go"),       // legacy sibling docgen/parser
 	}
 	for _, p := range candidates {
 		if _, err := os.Stat(p); err == nil {

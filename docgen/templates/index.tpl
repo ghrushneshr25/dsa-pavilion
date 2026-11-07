@@ -12,12 +12,10 @@ pagination_next: null
 {{if .ConceptItems}}
 ## Concepts
 
-Documentation pages for **concepts** in this category (data structures, APIs, theory).
-
 | Concept | Difficulty | Tags |
 | --- | --- | --- |
 {{- range .ConceptItems }}
-| [{{.Title}}]({{.Link}}) | {{.Difficulty}} | {{.Tags}} |
+| [{{.Title}}]({{.Link}}) | {{.Difficulty}} | <span class="dsa-tags">{{- range splitTags .Tags -}}<span class="dsa-tag">{{.}}</span>{{- end -}}</span> |
 {{- end }}
 
 {{end}}
@@ -29,12 +27,10 @@ Documentation pages for **concepts** in this category (data structures, APIs, th
 {{- if .ProblemItems }}
 ## Problems
 
-**Practice problems** in this category (with solutions and tests).
-
 | Problem | Difficulty | Tags |
 | --- | --- | --- |
 {{- range .ProblemItems }}
-| [{{.Title}}]({{.Link}}) | {{.Difficulty}} | {{.Tags}} |
+| [{{.Title}}]({{.Link}}) | {{.Difficulty}} | <span class="dsa-tags">{{- range splitTags .Tags -}}<span class="dsa-tag">{{.}}</span>{{- end -}}</span> |
 {{- end }}
 
 {{end}}

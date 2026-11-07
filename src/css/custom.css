@@ -496,21 +496,26 @@ html[data-theme='dark'] .navbar__logo img {
 }
 
 html.docs-doc-id-index .theme-doc-sidebar-container,
+html.docs-doc-id-index [class*='docSidebarContainer_'],
 html.docs-doc-id-index .theme-doc-toc-desktop,
 html.docs-doc-id-index .theme-doc-toc-mobile,
 html.docs-doc-id-index .theme-doc-breadcrumbs,
 html.docs-doc-id-index .pagination-nav,
-html.docs-doc-id-index .theme-doc-footer {
+html.docs-doc-id-index .theme-doc-footer,
+html.docs-doc-id-index main .row > .col.col--3 {
   display: none !important;
 }
 
 html.docs-doc-id-index .docRoot_UBD9,
 html.docs-doc-id-index [class*='docRoot_'] {
   display: block;
+  width: 100%;
 }
 
 html.docs-doc-id-index main[class*='docMainContainer_'] {
   max-width: none !important;
+  width: 100% !important;
+  flex: 1 1 100% !important;
 }
 
 html.docs-doc-id-index main .container,
@@ -522,12 +527,16 @@ html.docs-doc-id-index main .container.padding-bottom--lg {
 }
 
 html.docs-doc-id-index main .row {
+  display: block;
   margin: 0;
+  width: 100%;
 }
 
+html.docs-doc-id-index main .row > .col,
 html.docs-doc-id-index main [class*='docItemCol_'] {
   max-width: 100% !important;
-  flex: 1 1 100% !important;
+  flex: 0 0 100% !important;
+  width: 100% !important;
   padding: 0 !important;
 }
 
@@ -786,6 +795,37 @@ article table:first-of-type {
   white-space: nowrap;
 }
 
+.dsa-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  max-width: 100%;
+}
+
+.dsa-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  color: var(--text-dim);
+  background: var(--accent-dim);
+  border-radius: var(--radius);
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+article table td .dsa-tags {
+  vertical-align: middle;
+}
+
+article table td:has(.dsa-tags) {
+  line-height: 1.6;
+}
+
 /* -------------------------------------------------
    Home
    ------------------------------------------------- */
@@ -813,8 +853,8 @@ article table:first-of-type {
 
 .dsa-home,
 html.docs-doc-id-index .dsa-home.dsa-home--book {
-  width: min(92%, calc(100% - 32px));
-  max-width: none;
+  width: min(var(--max), calc(100% - 32px));
+  max-width: 100%;
   margin: 0 auto;
   padding: 0 0 4rem;
   box-sizing: border-box;
@@ -823,7 +863,7 @@ html.docs-doc-id-index .dsa-home.dsa-home--book {
 @media (min-width: 768px) {
   .dsa-home,
   html.docs-doc-id-index .dsa-home.dsa-home--book {
-    width: min(92%, calc(100% - 64px));
+    width: min(var(--max), calc(100% - 64px));
   }
 }
 
@@ -831,12 +871,10 @@ html.docs-doc-id-index .dsa-home.dsa-home--book {
   position: relative;
   padding: 36px 0 56px;
   overflow: hidden;
-  width: 100%;
 }
 
 .dsa-hero__layout {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 32px;
   min-width: 0;
 }
@@ -856,9 +894,8 @@ html.docs-doc-id-index .dsa-home.dsa-home--book {
   }
 
   .dsa-hero__layout {
-    grid-template-columns: minmax(0, 1.15fr) minmax(240px, 0.85fr);
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
     align-items: end;
-    gap: 32px;
   }
 
   .dsa-hero__rail {
@@ -869,18 +906,6 @@ html.docs-doc-id-index .dsa-home.dsa-home--book {
   .dsa-hero__role {
     font-size: 13px;
     letter-spacing: 0.08em;
-  }
-
-  .dsa-status {
-    width: min(100%, 22.5rem);
-    justify-self: start;
-  }
-}
-
-@media (min-width: 1100px) {
-  .dsa-hero__layout {
-    grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
-    gap: 48px;
   }
 }
 

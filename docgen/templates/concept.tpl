@@ -10,7 +10,10 @@ sidebar_position: {{.SidebarPosition}}
 <table>
   <tbody>
     <tr><td>Difficulty</td><td>{{index .Meta "difficulty"}}</td></tr>
-    <tr><td>Tags</td><td>{{index .Meta "tags"}}</td></tr>
+{{- $tags := splitTags (index .Meta "tags") }}
+{{- if $tags }}
+    <tr><td>Tags</td><td><span class="dsa-tags">{{- range $tags -}}<span class="dsa-tag">{{.}}</span>{{- end -}}</span></td></tr>
+{{- end }}
   </tbody>
 </table>
 

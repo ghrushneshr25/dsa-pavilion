@@ -2,4 +2,4 @@
 # Lines are processed top to bottom; any folder not listed is appended after, A–Z.
 
 recursion-backtracking
-linkedlist
+linked-list

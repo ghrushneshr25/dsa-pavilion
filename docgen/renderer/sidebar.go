@@ -7,7 +7,7 @@ import (
 
 type SidebarCategory struct {
 	Name     string // display label (title-cased folder name)
-	Slug     string // docs folder name, e.g. linkedlist → doc id linkedlist/index
+	Slug     string // docs folder name, e.g. linked-list → doc id linked-list/index
 	Concepts []string
 	Problems []string
 }
