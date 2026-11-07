@@ -60,4 +60,4 @@ yarn build
 
 Pushes to `master` deploy GitHub Pages via `.github/workflows/deploy.yml`.
 
-When Go sources are pushed to [`dsa`](https://github.com/ghrushneshr25/dsa) `master`, CI generates docs, opens a PR on this repo, waits for the **Build** check (`npm run build`), then squash-merges. Pull requests on `dsa` run the same generate + build as a status check without publishing.
+When Go sources are pushed to [`dsa`](https://github.com/ghrushneshr25/dsa) `master`, CI generates docs and opens a PR here. If **Build** (`npm run build`) succeeds, that PR is squash-merged automatically and Pages deploys. Pull requests on `dsa` run generate + build as a status check without publishing.

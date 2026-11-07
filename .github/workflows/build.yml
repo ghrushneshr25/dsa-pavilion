@@ -1,4 +1,5 @@
 # PR check: generated docs + Docusaurus config must produce a successful site build.
+# Automated docs PRs (docs/regenerate-*) are squash-merged when this job succeeds.
 name: Build
 
 on:
@@ -9,6 +10,10 @@ on:
 concurrency:
   group: build-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   build:
@@ -27,3 +32,10 @@ jobs:
 
       - name: Build site
         run: npm run build
+
+      - name: Auto-merge docs PR
+        if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'docs/regenerate-')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge --squash --delete-branch "${{ github.event.pull_request.number }}"
